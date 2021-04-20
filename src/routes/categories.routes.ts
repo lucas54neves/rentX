@@ -11,7 +11,11 @@ categoriesRoutes.post('/', (request: Request, response: Response) => {
 
   const createCategoryService = new CreateCategoryService(categoriesRepository)
 
-  createCategoryService.execute({ name, description })
+  try {
+    createCategoryService.execute({ name, description })
+  } catch (error) {
+    return response.status(400).json({ message: error.message })
+  }
 
   return response.status(201).send()
 })

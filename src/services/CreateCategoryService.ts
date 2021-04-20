@@ -1,14 +1,10 @@
+import { CategoryCreationRequest } from '../dtos/CategoryCreationRequest'
 import { CategoriesRepository } from '../repositories/CategoriesRepository'
-
-interface IRequest {
-  name: string
-  description: string
-}
 
 export class CreateCategoryService {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
-  execute({ name, description }: IRequest) {
+  execute({ name, description }: CategoryCreationRequest) {
     const categoryAlreadyExists = this.categoriesRepository.findByName(name)
 
     if (categoryAlreadyExists) {

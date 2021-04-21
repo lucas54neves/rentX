@@ -1,2 +1,4 @@
 export * from './CategoriesRepository'
-export * from './PostgresCategoriesRepository'
+export * from './ICategoriesRepository'
+export * from './ISpecificationsRepository'
+export * from './SpecificationsRepository'

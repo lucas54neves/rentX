@@ -1,5 +1,5 @@
 import { Category } from '../model'
-import { CategoryCreationRequest } from './CategoryCreationRequest'
+import { CategoryCreationRequest } from '../dtos'
 
 export type ICategoriesRepository = {
   findByName(name: string): Category | undefined

@@ -1,6 +1,6 @@
 import { CategoryCreationRequest } from '../dtos'
-import { ISpecificationsRepository } from '../dtos/ISpecificationsRepository'
 import { Category } from '../model'
+import { ISpecificationsRepository } from './ISpecificationsRepository'
 
 export class SpecificationsRepository implements ISpecificationsRepository {
   private specifications: Category[]

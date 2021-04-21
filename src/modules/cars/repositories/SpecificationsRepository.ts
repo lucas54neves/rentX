@@ -1,27 +1,27 @@
-import { CategoryCreationRequest } from '../dtos'
-import { Category } from '../model'
+import { SpecificationCreationRequest } from '../dtos'
+import { Specification } from '../model'
 import { ISpecificationsRepository } from './ISpecificationsRepository'
 
 export class SpecificationsRepository implements ISpecificationsRepository {
-  private specifications: Category[]
+  private specifications: Specification[]
 
   constructor() {
     this.specifications = []
   }
 
-  create({ name, description }: CategoryCreationRequest): Category {
-    const category = new Category(name, description)
+  create({ name, description }: SpecificationCreationRequest): Specification {
+    const specification = new Specification(name, description)
 
-    this.specifications.push(category)
+    this.specifications.push(specification)
 
-    return category
+    return specification
   }
 
-  list(): Category[] {
+  list(): Specification[] {
     return this.specifications
   }
 
-  findByName(name: string): Category | undefined {
-    return this.specifications.find((category) => category.name === name)
+  findByName(name: string): Specification | undefined {
+    return this.specifications.find((specification) => specification.name === name)
   }
 }

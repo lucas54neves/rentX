@@ -1,1 +1,2 @@
-export * from './CreateCategoryService'
+export * from './CategoryCreationService'
+export * from './SpecificationCreationService'

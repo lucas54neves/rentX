@@ -1,6 +1,6 @@
-import { SpecificationCreationRequest } from '../dtos'
-import { Specification } from '../model'
-import { ISpecificationsRepository } from './ISpecificationsRepository'
+import { SpecificationCreationRequest } from '../../dtos'
+import { Specification } from '../../model'
+import { ISpecificationsRepository } from '../ISpecificationsRepository'
 
 export class SpecificationsRepository implements ISpecificationsRepository {
   private specifications: Specification[]
@@ -22,6 +22,8 @@ export class SpecificationsRepository implements ISpecificationsRepository {
   }
 
   findByName(name: string): Specification | undefined {
-    return this.specifications.find((specification) => specification.name === name)
+    return this.specifications.find(
+      (specification) => specification.name === name
+    )
   }
 }

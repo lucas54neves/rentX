@@ -1,4 +1,4 @@
-import { Category } from '../model/Category'
+import { Category } from '../model'
 import { CategoriesRepository, CategoryCreationRequest } from '../dtos'
 
 export class PostgresCategoriesRepository implements CategoriesRepository {

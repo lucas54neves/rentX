@@ -1,5 +1,5 @@
-import { ICreateCategoryDTO } from '../dtos/ICreateCategoryDTO'
-import { Category } from '../model/Category'
+import { CategoryCreationRequest } from '../dtos'
+import { Category } from '../model'
 
 export class CategoriesRepository {
   private categories: Category[]
@@ -8,7 +8,7 @@ export class CategoriesRepository {
     this.categories = []
   }
 
-  create({ name, description }: ICreateCategoryDTO): Category {
+  create({ name, description }: CategoryCreationRequest): Category {
     const category = new Category(name, description)
 
     this.categories.push(category)

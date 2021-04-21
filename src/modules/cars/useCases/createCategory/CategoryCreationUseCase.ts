@@ -1,7 +1,7 @@
-import { CategoryCreationRequest } from '../dtos'
-import { CategoriesRepository } from '../repositories'
+import { CategoryCreationRequest } from "../../dtos"
+import { CategoriesRepository } from "../../repositories"
 
-export class CategoryCreationService {
+export class CategoryCreationUseCase {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
   execute({ name, description }: CategoryCreationRequest) {

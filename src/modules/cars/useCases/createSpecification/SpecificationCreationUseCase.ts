@@ -1,7 +1,7 @@
-import { SpecificationCreationRequest } from '../dtos'
-import { SpecificationsRepository } from '../repositories'
+import { SpecificationCreationRequest } from '../../dtos'
+import { SpecificationsRepository } from '../../repositories'
 
-export class SpecificationCreationService {
+export class SpecificationCreationUseCase {
   constructor(private specificationsRepository: SpecificationsRepository) {}
 
   execute({ name, description }: SpecificationCreationRequest) {

@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
 import { CategoriesRepository } from '../modules/cars/repositories'
-import { CategoryCreationService } from '../modules/cars/services'
+import { CategoryCreationUseCase } from '../modules/cars/useCases/createCategory'
 
 const categoriesRoutes = Router()
 
@@ -9,7 +9,7 @@ const categoriesRepository = new CategoriesRepository()
 categoriesRoutes.post('/', (request: Request, response: Response) => {
   const { name, description } = request.body
 
-  const categoryCreationService = new CategoryCreationService(categoriesRepository)
+  const categoryCreationService = new CategoryCreationUseCase(categoriesRepository)
 
   try {
     categoryCreationService.execute({ name, description })

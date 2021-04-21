@@ -1,23 +1,14 @@
 import { Request, Response, Router } from 'express'
+
 import { SpecificationsRepository } from '../modules/cars/repositories'
-import { SpecificationCreationUseCase } from '../modules/cars/useCases/createSpecification'
+import { specificationCreationController } from '../modules/cars/useCases/specificationCreation'
 
 const specificationsRoutes = Router()
 
 const specificationsRepository = new SpecificationsRepository()
 
 specificationsRoutes.post('/', (request: Request, response: Response) => {
-  const { name, description } = request.body
-
-  const specificationCreationService = new SpecificationCreationUseCase(specificationsRepository)
-
-  try {
-    specificationCreationService.execute({ name, description })
-  } catch (error) {
-    return response.status(400).json({ message: error.message })
-  }
-
-  return response.status(201).send()
+  return specificationCreationController.handle(request, response)
 })
 
 specificationsRoutes.get('/', (request: Request, response: Response) => {

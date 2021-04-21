@@ -5,7 +5,9 @@ export class SpecificationCreationUseCase {
   constructor(private specificationsRepository: SpecificationsRepository) {}
 
   execute({ name, description }: SpecificationCreationRequest) {
-    const specificationAlreadyExists = this.specificationsRepository.findByName(name)
+    const specificationAlreadyExists = this.specificationsRepository.findByName(
+      name
+    )
 
     if (specificationAlreadyExists) {
       throw new Error('Specification already exists!')

@@ -1,4 +1,4 @@
-export * from './CategoriesRepository'
+export * from './implementations/CategoriesRepository'
 export * from './ICategoriesRepository'
 export * from './ISpecificationsRepository'
-export * from './SpecificationsRepository'
+export * from './implementations/SpecificationsRepository'

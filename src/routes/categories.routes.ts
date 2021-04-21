@@ -1,7 +1,7 @@
 import { Request, Response, Router } from 'express'
 
 import { categoryListingController } from '../modules/cars/useCases/categoryListing'
-import { categoryCreationController } from '../modules/cars/useCases/createCategory'
+import { categoryCreationController } from '../modules/cars/useCases/categoryCreation'
 
 const categoriesRoutes = Router()
 

@@ -1,5 +1,5 @@
-import { Category } from 'modules/cars/model'
-import { ICategoriesRepository } from 'modules/cars/repositories'
+import { Category } from '../../model'
+import { ICategoriesRepository } from '../../repositories'
 
 export class CategoryListingUseCase {
   constructor(private categoriesRepository: ICategoriesRepository) {}

@@ -5,7 +5,10 @@ import { categoryListingController } from '../modules/cars/useCases/categoryList
 import { categoryCreationController } from '../modules/cars/useCases/categoryCreation'
 
 const upload = multer({
-  dest: './tmp'
+  dest: './tmp',
+  limits: {
+    fileSize: 8000000 // Compliant: 8MB
+  }
 })
 
 const categoriesRoutes = Router()

@@ -3,6 +3,7 @@ import multer from 'multer'
 
 import { categoryListingController } from '../modules/cars/useCases/categoryListing'
 import { categoryCreationController } from '../modules/cars/useCases/categoryCreation'
+import { categoryImportingController } from '../modules/cars/useCases/categoryImporting'
 
 const upload = multer({
   dest: './tmp',
@@ -25,11 +26,7 @@ categoriesRoutes.post(
   '/import',
   upload.single('file'),
   (request: Request, response: Response) => {
-    const { file } = request
-
-    console.log(file)
-
-    return response.send()
+    return categoryImportingController.handle(request, response)
   }
 )
 

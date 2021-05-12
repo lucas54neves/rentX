@@ -20,7 +20,7 @@ export class CategoryImportingUseCase {
       stream.pipe(parseFile)
 
       parseFile
-        .on('data', async (line) => {
+        .on('data', async (line: any) => {
           const [name, description] = line
 
           categories.push({
@@ -29,9 +29,10 @@ export class CategoryImportingUseCase {
           })
         })
         .on('end', () => {
+          fs.promises.unlink(file.path)
           resolve(categories)
         })
-        .on('error', (err) => {
+        .on('error', (err: any) => {
           reject(err)
         })
     })

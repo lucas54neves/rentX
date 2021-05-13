@@ -1,8 +1,8 @@
 {
-  "name": "rentalx",
+  "name": "rentx",
   "version": "1.0.0",
   "main": "src/server.ts",
-  "repository": "https://github.com/lucas54neves/rentalx.git",
+  "repository": "https://github.com/lucas54neves/rentx.git",
   "author": "Lucas Neves <lucas54neves@outlook.com>",
   "license": "MIT",
   "scripts": {

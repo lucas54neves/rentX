@@ -1,8 +1,8 @@
-import { Category } from '../model'
+import { Category } from '../entities'
 import { CategoryCreationRequest } from '../dtos'
 
 export interface ICategoriesRepository {
-  findByName(name: string): Category | undefined
-  list(): Category[]
-  create({ name, description }: CategoryCreationRequest): void
+  create({ name, description }: CategoryCreationRequest): Promise<void>
+  list(): Promise<Category[]>
+  findByName(name: string): Promise<Category | undefined>
 }

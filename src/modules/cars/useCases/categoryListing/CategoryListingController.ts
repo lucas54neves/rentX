@@ -5,7 +5,9 @@ import { CategoryListingUseCase } from './CategoryListingUseCase'
 export class CategoryListingController {
   constructor(private categoryListingUseCase: CategoryListingUseCase) {}
 
-  handle(request: Request, response: Response): Response {
-    return response.json(this.categoryListingUseCase.execute())
+  async handle(request: Request, response: Response): Promise<Response> {
+    return response
+      .status(200)
+      .json(await this.categoryListingUseCase.execute())
   }
 }

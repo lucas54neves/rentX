@@ -4,11 +4,11 @@ import { CategoryImportingUseCase } from './CategoryImportingUseCase'
 export class CategoryImportingController {
   constructor(private categoryImportingUseCase: CategoryImportingUseCase) {}
 
-  handle(request: Request, response: Response): Response {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { file } = request
 
-    this.categoryImportingUseCase.execute(file)
+    await this.categoryImportingUseCase.execute(file)
 
-    return response.send()
+    return response.status(200).send()
   }
 }

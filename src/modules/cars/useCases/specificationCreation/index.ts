@@ -2,14 +2,12 @@ import { SpecificationsRepository } from '../../repositories'
 import { SpecificationCreationController } from './SpecificationCreationController'
 import { SpecificationCreationUseCase } from './SpecificationCreationUseCase'
 
-const specificationsRepository = SpecificationsRepository.getInstance()
+export default (): SpecificationCreationController => {
+  const specificationsRepository = new SpecificationsRepository()
 
-const specificationCreationUseCase = new SpecificationCreationUseCase(
-  specificationsRepository
-)
+  const specificationCreationUseCase = new SpecificationCreationUseCase(
+    specificationsRepository
+  )
 
-const specificationCreationController = new SpecificationCreationController(
-  specificationCreationUseCase
-)
-
-export { specificationCreationController }
+  return new SpecificationCreationController(specificationCreationUseCase)
+}

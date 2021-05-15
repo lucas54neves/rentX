@@ -6,7 +6,7 @@ export class SpecificationListingController {
     private specificationListingUseCase: SpecificationListingUseCase
   ) {}
 
-  handle(request: Request, response: Response): Response {
-    return response.json(this.specificationListingUseCase.execute())
+  async handle(request: Request, response: Response): Promise<Response> {
+    return response.status(200).json(this.specificationListingUseCase.execute())
   }
 }

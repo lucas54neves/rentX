@@ -6,11 +6,11 @@ export class SpecificationCreationController {
     private specificationCreationUseCase: SpecificationCreationUseCase
   ) {}
 
-  handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response) {
     const { name, description } = request.body
 
     try {
-      this.specificationCreationUseCase.execute({ name, description })
+      await this.specificationCreationUseCase.execute({ name, description })
     } catch (error) {
       return response.status(400).json({ message: error.message })
     }

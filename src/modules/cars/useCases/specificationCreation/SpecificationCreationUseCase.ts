@@ -1,8 +1,13 @@
+import { inject, injectable } from 'tsyringe'
 import { SpecificationCreationRequest } from '../../dtos'
 import { SpecificationsRepository } from '../../repositories'
 
-export class SpecificationCreationUseCase {
-  constructor(private specificationsRepository: SpecificationsRepository) {}
+@injectable()
+class SpecificationCreationUseCase {
+  constructor(
+    @inject('SpecificationsRepository')
+    private specificationsRepository: SpecificationsRepository
+  ) {}
 
   async execute({
     name,
@@ -18,3 +23,5 @@ export class SpecificationCreationUseCase {
     await this.specificationsRepository.create({ name, description })
   }
 }
+
+export { SpecificationCreationUseCase }

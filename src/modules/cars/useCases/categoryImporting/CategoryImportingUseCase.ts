@@ -1,11 +1,16 @@
 import csvParse from 'csv-parse'
 import fs from 'fs'
+import { inject, injectable } from 'tsyringe'
 
 import { CategoryImportingRequest } from '../../dtos'
 import { ICategoriesRepository } from '../../repositories'
 
-export class CategoryImportingUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository) {}
+@injectable()
+class CategoryImportingUseCase {
+  constructor(
+    @inject('CategoriesRepository')
+    private categoriesRepository: ICategoriesRepository
+  ) {}
 
   loadCategories(
     file: Express.Multer.File
@@ -47,7 +52,7 @@ export class CategoryImportingUseCase {
       const existCategory = await this.categoriesRepository.findByName(name)
 
       if (!existCategory) {
-        this.categoriesRepository.create({
+        await this.categoriesRepository.create({
           name,
           description
         })
@@ -55,3 +60,5 @@ export class CategoryImportingUseCase {
     })
   }
 }
+
+export { CategoryImportingUseCase }

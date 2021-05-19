@@ -1,8 +1,14 @@
+import { inject, injectable } from 'tsyringe'
+
 import { CategoryCreationRequest } from '../../dtos'
 import { CategoriesRepository } from '../../repositories'
 
-export class CategoryCreationUseCase {
-  constructor(private categoriesRepository: CategoriesRepository) {}
+@injectable()
+class CategoryCreationUseCase {
+  constructor(
+    @inject('CategoriesRepository')
+    private categoriesRepository: CategoriesRepository
+  ) {}
 
   async execute({ name, description }: CategoryCreationRequest): Promise<void> {
     const categoryAlreadyExists = await this.categoriesRepository.findByName(
@@ -16,3 +22,5 @@ export class CategoryCreationUseCase {
     this.categoriesRepository.create({ name, description })
   }
 }
+
+export { CategoryCreationUseCase }

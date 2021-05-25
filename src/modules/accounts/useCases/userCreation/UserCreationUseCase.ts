@@ -1,5 +1,6 @@
 import { hash } from 'bcrypt'
 import { inject, injectable } from 'tsyringe'
+import { AppError } from '../../../../errors'
 
 import { UserCreationRequest } from '../../dtos'
 import { IUsersRepository } from '../../repositories'
@@ -21,7 +22,7 @@ class UserCreationUseCase {
     const emailAlreadyInUse = await this.usersRepository.findByEmail(email)
 
     if (emailAlreadyInUse) {
-      throw new Error('Email already in use')
+      throw new AppError('Email already in use')
     }
 
     const usernameAlreadyInUse = await this.usersRepository.findByUsername(
@@ -29,7 +30,7 @@ class UserCreationUseCase {
     )
 
     if (usernameAlreadyInUse) {
-      throw new Error('Username already in use')
+      throw new AppError('Username already in use')
     }
 
     const passwordHashed = await hash(password, 8)

@@ -24,6 +24,9 @@ class User {
   @Column()
   isAdmin: boolean
 
+  @Column()
+  avatar: string
+
   @CreateDateColumn()
   createdAt: Date
 
@@ -32,7 +35,8 @@ class User {
     username: string,
     email: string,
     password: string,
-    driverLicense: string
+    driverLicense: string,
+    avatar: string
   ) {
     this.id = uuidv4()
     this.name = name
@@ -42,6 +46,7 @@ class User {
     this.driverLicense = driverLicense
     this.isAdmin = false
     this.createdAt = new Date()
+    this.avatar = avatar
   }
 }
 

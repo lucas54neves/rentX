@@ -35,13 +35,15 @@ class UserCreationUseCase {
 
     const passwordHashed = await hash(password, 8)
 
-    await this.usersRepository.create({
+    const user = await this.usersRepository.create({
       name,
       username,
       email,
       password: passwordHashed,
       driverLicense
     })
+
+    await this.usersRepository.save(user)
   }
 }
 

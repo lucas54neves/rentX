@@ -12,7 +12,7 @@ class CategoriesRepositoryInMemory implements ICategoriesRepository {
   async create({ name, description }: CategoryCreationRequest): Promise<void> {
     const category = new Category(name, description)
 
-    this.save(category)
+    await this.save(category)
   }
 
   async save(category: Category): Promise<void> {

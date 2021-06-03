@@ -1,18 +1,29 @@
-import { SpecificationCreationRequest } from '../../dtos'
-import { SpecificationsRepository } from '../../repositories'
+import { inject, injectable } from 'tsyringe'
 
-export class SpecificationCreationUseCase {
-  constructor(private specificationsRepository: SpecificationsRepository) {}
+import { AppError } from '@shared/errors'
+import { SpecificationCreationRequest } from '@modules/cars/dtos'
+import { SpecificationsRepository } from '@modules/cars/infra/typeorm/repositories'
 
-  execute({ name, description }: SpecificationCreationRequest) {
-    const specificationAlreadyExists = this.specificationsRepository.findByName(
-      name
-    )
+@injectable()
+class SpecificationCreationUseCase {
+  constructor(
+    @inject('SpecificationsRepository')
+    private specificationsRepository: SpecificationsRepository
+  ) {}
+
+  async execute({
+    name,
+    description
+  }: SpecificationCreationRequest): Promise<void> {
+    const specificationAlreadyExists =
+      await this.specificationsRepository.findByName(name)
 
     if (specificationAlreadyExists) {
-      throw new Error('Specification already exists!')
+      throw new AppError('Specification already exists')
     }
 
-    this.specificationsRepository.create({ name, description })
+    await this.specificationsRepository.create({ name, description })
   }
 }
+
+export { SpecificationCreationUseCase }

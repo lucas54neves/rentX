@@ -1,8 +1,9 @@
-import { Specification } from '../model'
+import { Specification } from '../infra/typeorm/entities'
 import { SpecificationCreationRequest } from '../dtos'
 
 export interface ISpecificationsRepository {
-  findByName(name: string): Specification | undefined
-  list(): Specification[]
-  create({ name, description }: SpecificationCreationRequest): void
+  create({ name, description }: SpecificationCreationRequest): Promise<void>
+  save(category: Specification): Promise<void>
+  list(): Promise<Specification[]>
+  findByName(name: string): Promise<Specification | undefined>
 }

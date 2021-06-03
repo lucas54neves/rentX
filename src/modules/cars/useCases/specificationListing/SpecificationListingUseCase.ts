@@ -1,10 +1,18 @@
-import { Specification } from '../../model'
-import { ISpecificationsRepository } from '../../repositories'
+import { inject, injectable } from 'tsyringe'
 
-export class SpecificationListingUseCase {
-  constructor(private specificationsRepository: ISpecificationsRepository) {}
+import { Specification } from '@modules/cars/infra/typeorm/entities'
+import { ISpecificationsRepository } from '@modules/cars/repositories'
 
-  execute(): Specification[] {
+@injectable()
+class SpecificationListingUseCase {
+  constructor(
+    @inject('SpecificationsRepository')
+    private specificationsRepository: ISpecificationsRepository
+  ) {}
+
+  async execute(): Promise<Specification[]> {
     return this.specificationsRepository.list()
   }
 }
+
+export { SpecificationListingUseCase }

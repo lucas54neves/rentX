@@ -1,16 +1,27 @@
-import { CategoryCreationRequest } from "../../dtos"
-import { CategoriesRepository } from "../../repositories"
+import { inject, injectable } from 'tsyringe'
 
-export class CategoryCreationUseCase {
-  constructor(private categoriesRepository: CategoriesRepository) {}
+import { AppError } from '@shared/errors'
+import { CategoryCreationRequest } from '@modules/cars/dtos'
+import { ICategoriesRepository } from '@modules/cars/repositories'
 
-  execute({ name, description }: CategoryCreationRequest) {
-    const categoryAlreadyExists = this.categoriesRepository.findByName(name)
+@injectable()
+class CategoryCreationUseCase {
+  constructor(
+    @inject('CategoriesRepository')
+    private categoriesRepository: ICategoriesRepository
+  ) {}
+
+  async execute({ name, description }: CategoryCreationRequest): Promise<void> {
+    const categoryAlreadyExists = await this.categoriesRepository.findByName(
+      name
+    )
 
     if (categoryAlreadyExists) {
-      throw new Error('Category already exists!')
+      throw new AppError('Category already exists')
     }
 
     this.categoriesRepository.create({ name, description })
   }
 }
+
+export { CategoryCreationUseCase }

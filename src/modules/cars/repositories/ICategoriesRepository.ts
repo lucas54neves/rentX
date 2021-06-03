@@ -1,8 +1,9 @@
-import { Category } from '../model'
 import { CategoryCreationRequest } from '../dtos'
+import { Category } from '../infra/typeorm/entities'
 
 export interface ICategoriesRepository {
-  findByName(name: string): Category | undefined
-  list(): Category[]
-  create({ name, description }: CategoryCreationRequest): void
+  create({ name, description }: CategoryCreationRequest): Promise<void>
+  save(category: Category): Promise<void>
+  list(): Promise<Category[]>
+  findByName(name: string): Promise<Category | undefined>
 }

@@ -9,8 +9,8 @@ class UsersRepositoryInMemory implements IUsersRepository {
     this.users = []
   }
 
-  async create(data: UserCreationRequest): Promise<User> {
-    return new User(
+  async create(data: UserCreationRequest): Promise<void> {
+    const user = new User(
       data.name,
       data.username,
       data.email,
@@ -18,6 +18,8 @@ class UsersRepositoryInMemory implements IUsersRepository {
       data.driverLicense,
       'avatarFile'
     )
+
+    await this.save(user)
   }
 
   async save(user: User): Promise<void> {

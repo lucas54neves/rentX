@@ -17,7 +17,7 @@ class CategoriesRepository implements ICategoriesRepository {
       description
     })
 
-    await this.repository.save(category)
+    await this.save(category)
   }
 
   async save(category: Category): Promise<void> {

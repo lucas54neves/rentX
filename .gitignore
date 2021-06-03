@@ -19,7 +19,8 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+coverage/*
+!/coverage/clover.xml
 *.lcov
 
 # nyc test coverage

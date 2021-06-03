@@ -1,8 +1,9 @@
 import { inject, injectable } from 'tsyringe'
-import { AppError } from '../../../../errors'
-import { deleteFile } from '../../../../utils/file'
-import { UpdateUserAvatarRequest } from '../../dtos'
-import { IUsersRepository } from '../../repositories'
+
+import { AppError } from '@shared/errors'
+import { UpdateUserAvatarRequest } from '@modules/accounts/dtos'
+import { IUsersRepository } from '@modules/accounts/repositories'
+import { deleteFile } from '@utils'
 
 @injectable()
 class UpdateUserAvatarUseCase {

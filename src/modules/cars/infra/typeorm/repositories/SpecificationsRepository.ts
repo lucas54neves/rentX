@@ -1,7 +1,8 @@
 import { getRepository, Repository } from 'typeorm'
-import { SpecificationCreationRequest } from '../../dtos'
-import { Specification } from '../../entities'
-import { ISpecificationsRepository } from '../ISpecificationsRepository'
+
+import { SpecificationCreationRequest } from '@modules/cars/dtos'
+import { Specification } from '@modules/cars/infra/typeorm/entities'
+import { ISpecificationsRepository } from '@modules/cars/repositories'
 
 class SpecificationsRepository implements ISpecificationsRepository {
   private repository: Repository<Specification>
@@ -16,6 +17,10 @@ class SpecificationsRepository implements ISpecificationsRepository {
   }: SpecificationCreationRequest): Promise<void> {
     const specification = this.repository.create({ name, description })
 
+    await this.repository.save(specification)
+  }
+
+  async save(specification: Specification): Promise<void> {
     await this.repository.save(specification)
   }
 

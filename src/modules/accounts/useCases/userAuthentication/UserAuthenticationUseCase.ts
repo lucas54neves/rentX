@@ -2,12 +2,12 @@ import { compare } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 
-import { AppError } from '../../../../errors'
+import { AppError } from '@shared/errors'
 import {
   UserAuthenticationRequest,
   UserAuthenticationResponse
-} from '../../dtos'
-import { IUsersRepository } from '../../repositories'
+} from '@modules/accounts/dtos'
+import { IUsersRepository } from '@modules/accounts/repositories'
 
 @injectable()
 class UserAuthenticationUseCase {

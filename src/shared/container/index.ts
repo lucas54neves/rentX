@@ -1,15 +1,15 @@
 import { container } from 'tsyringe'
-import {
-  IUsersRepository,
-  UsersRepository
-} from '../../modules/accounts/repositories'
 
+import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository'
+import { IUsersRepository } from '@modules/accounts/repositories'
+import {
+  CategoriesRepository,
+  SpecificationsRepository
+} from '@modules/cars/infra/typeorm/repositories'
 import {
   ICategoriesRepository,
-  CategoriesRepository,
-  ISpecificationsRepository,
-  SpecificationsRepository
-} from '../../modules/cars/repositories/'
+  ISpecificationsRepository
+} from '@modules/cars/repositories'
 
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',

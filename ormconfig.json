@@ -4,7 +4,7 @@
   "host": "localhost",
   "username": "docker",
   "password": "ignite",
-  "database": "database_ignite",
+  "database": "rentx",
   "migrations": ["./src/database/migrations/*.ts"],
   "entities": ["./src/modules/**/entities/*.ts"],
   "cli": {

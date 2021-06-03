@@ -2,8 +2,8 @@ import csvParse from 'csv-parse'
 import fs from 'fs'
 import { inject, injectable } from 'tsyringe'
 
-import { CategoryImportingRequest } from '../../dtos'
-import { ICategoriesRepository } from '../../repositories'
+import { CategoryImportingRequest } from '@modules/cars/dtos'
+import { ICategoriesRepository } from '@modules/cars/repositories'
 
 @injectable()
 class CategoryImportingUseCase {

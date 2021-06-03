@@ -1,7 +1,8 @@
 import { getRepository, Repository } from 'typeorm'
-import { CategoryCreationRequest } from '../../dtos'
-import { Category } from '../../entities'
-import { ICategoriesRepository } from '../ICategoriesRepository'
+
+import { CategoryCreationRequest } from '@modules/cars/dtos'
+import { Category } from '@modules/cars/infra/typeorm/entities'
+import { ICategoriesRepository } from '@modules/cars/repositories'
 
 class CategoriesRepository implements ICategoriesRepository {
   private repository: Repository<Category>
@@ -16,6 +17,10 @@ class CategoriesRepository implements ICategoriesRepository {
       description
     })
 
+    await this.repository.save(category)
+  }
+
+  async save(category: Category): Promise<void> {
     await this.repository.save(category)
   }
 

@@ -1,5 +1,5 @@
 import { UserCreationRequest } from '../dtos'
-import { User } from '../entities'
+import { User } from '../infra/typeorm/entities'
 
 interface IUsersRepository {
   create(data: UserCreationRequest): Promise<User>

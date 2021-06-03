@@ -1,14 +1,14 @@
 import { inject, injectable } from 'tsyringe'
-import { AppError } from '../../../../errors'
 
-import { CategoryCreationRequest } from '../../dtos'
-import { CategoriesRepository } from '../../repositories'
+import { AppError } from '@shared/errors'
+import { CategoryCreationRequest } from '@modules/cars/dtos'
+import { ICategoriesRepository } from '@modules/cars/repositories'
 
 @injectable()
 class CategoryCreationUseCase {
   constructor(
     @inject('CategoriesRepository')
-    private categoriesRepository: CategoriesRepository
+    private categoriesRepository: ICategoriesRepository
   ) {}
 
   async execute({ name, description }: CategoryCreationRequest): Promise<void> {
@@ -17,7 +17,7 @@ class CategoryCreationUseCase {
     )
 
     if (categoryAlreadyExists) {
-      throw new AppError('Category already exists!')
+      throw new AppError('Category already exists')
     }
 
     this.categoriesRepository.create({ name, description })

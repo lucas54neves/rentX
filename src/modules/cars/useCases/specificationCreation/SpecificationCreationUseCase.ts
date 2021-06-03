@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe'
-import { AppError } from '../../../../errors'
-import { SpecificationCreationRequest } from '../../dtos'
-import { SpecificationsRepository } from '../../repositories'
+
+import { AppError } from '@shared/errors'
+import { SpecificationCreationRequest } from '@modules/cars/dtos'
+import { SpecificationsRepository } from '@modules/cars/infra/typeorm/repositories'
 
 @injectable()
 class SpecificationCreationUseCase {
@@ -18,7 +19,7 @@ class SpecificationCreationUseCase {
       await this.specificationsRepository.findByName(name)
 
     if (specificationAlreadyExists) {
-      throw new AppError('Specification already exists!')
+      throw new AppError('Specification already exists')
     }
 
     await this.specificationsRepository.create({ name, description })

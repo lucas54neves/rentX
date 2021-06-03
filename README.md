@@ -1,4 +1,4 @@
-# rentx
+# rentX
 
 A car rental API
 

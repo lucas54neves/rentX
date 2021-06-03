@@ -45,5 +45,9 @@
   "prettier": "@lucas54neves/prettier-config",
   "jest": {
     "testResultsProcessor": "jest-sonar-reporter"
+  },
+  "jestSonar": {
+    "reportPath": "coverage",
+    "reportFile": "clover.xml"
   }
 }

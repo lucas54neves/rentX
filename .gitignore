@@ -106,3 +106,4 @@ dist
 # Temporary files
 /tmp/*
 !/tmp/.gitkeep
+test-report.xml

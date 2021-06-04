@@ -16,21 +16,21 @@ describe('Create user', () => {
         name: 'Test user 1',
         username: 'testuser1',
         email: 'testuser1@mail.com',
-        password: '12345',
+        password: 'PbFltWmBaJ2apg5OqXyT0J+hHSRQjSeVlp5xvGkpR3Q=',
         driverLicense: 'ABC123'
       },
       {
         name: 'Test user 2',
         username: 'testuser2',
         email: 'testuser1@mail.com',
-        password: '54321',
+        password: 'IuahiL/MmSsttdfQgxeppnORecf61gpsvBroL21M7iM=',
         driverLicense: 'BNG435'
       },
       {
         name: 'Test user 3',
         username: 'testuser1',
         email: 'testuser3@mail.com',
-        password: '13579',
+        password: 'SOaNnbajr7zpK3UM6AcHKZR+9Ig2Mjx/GopCw8lZ9e4=',
         driverLicense: 'QWE876'
       }
     ]

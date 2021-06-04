@@ -26,7 +26,7 @@ describe('User authentication', () => {
       name: 'User Test',
       email: 'test@main.com',
       username: 'usertest',
-      password: '123456',
+      password: 'OHjcWdaFE35A7kBJBmVyjlNfaJ8lWgHI2zaUR4tjGhI=',
       driverLicense: '0001234'
     }
   })
@@ -46,7 +46,18 @@ describe('User authentication', () => {
     expect(async () => {
       await userAuthenticationUserCase.execute({
         email: 'false@mail.com',
-        password: 'false123'
+        password: '55Y8Tc+IMN+yJb+Z/UHZz3iJKXNLSdbWv8grYxDEtpo='
+      })
+    }).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('shout not be able to authenticate with incorrect email', () => {
+    expect(async () => {
+      await userCreationUseCase.execute(user)
+
+      await userAuthenticationUserCase.execute({
+        email: 'false@mail.com',
+        password: user.password
       })
     }).rejects.toBeInstanceOf(AppError)
   })
@@ -57,7 +68,7 @@ describe('User authentication', () => {
 
       await userAuthenticationUserCase.execute({
         email: user.email,
-        password: 'false123'
+        password: '55Y8Tc+IMN+yJb+Z/UHZz3iJKXNLSdbWv8grYxDEtpo='
       })
     }).rejects.toBeInstanceOf(AppError)
   })

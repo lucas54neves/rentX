@@ -5,8 +5,11 @@ import { UserCreationUseCase } from '../userCreation/UserCreationUseCase'
 import { UserAuthenticationUseCase } from './UserAuthenticationUseCase'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory
+
 let userAuthenticationUserCase: UserAuthenticationUseCase
+
 let userCreationUseCase: UserCreationUseCase
+
 let user: UserCreationRequest
 
 describe('User authentication', () => {

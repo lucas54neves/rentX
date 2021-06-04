@@ -1,11 +1,28 @@
 import { AppError } from '@shared/errors'
 import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory'
 import { CategoryCreationUseCase } from './CategoryCreationUseCase'
+import { CategoryCreationRequest } from '@modules/cars/dtos'
 
 let categoryCreationUseCase: CategoryCreationUseCase
+
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory
 
+let testCategories: CategoryCreationRequest[]
+
 describe('Category creation', () => {
+  beforeAll(() => {
+    testCategories = [
+      {
+        name: 'Category Test',
+        description: 'Category description test 1'
+      },
+      {
+        name: 'Category Test',
+        description: 'Category description test 2'
+      }
+    ]
+  })
+
   beforeEach(() => {
     categoriesRepositoryInMemory = new CategoriesRepositoryInMemory()
 
@@ -15,18 +32,13 @@ describe('Category creation', () => {
   })
 
   it('should be able to create a new category', async () => {
-    const category = {
-      name: 'Category Test',
-      description: 'Category description test'
-    }
-
     await categoryCreationUseCase.execute({
-      name: category.name,
-      description: category.description
+      name: testCategories[0].name,
+      description: testCategories[0].description
     })
 
     const categoryCreated = await categoriesRepositoryInMemory.findByName(
-      category.name
+      testCategories[0].name
     )
 
     expect(categoryCreated).toHaveProperty('id')
@@ -34,19 +46,14 @@ describe('Category creation', () => {
 
   it('should not be able to create a new category with name exists', async () => {
     expect(async () => {
-      const category = {
-        name: 'Category Test',
-        description: 'Category description test'
-      }
-
       await categoryCreationUseCase.execute({
-        name: category.name,
-        description: category.description
+        name: testCategories[0].name,
+        description: testCategories[0].description
       })
 
       await categoryCreationUseCase.execute({
-        name: category.name,
-        description: category.description
+        name: testCategories[1].name,
+        description: testCategories[1].description
       })
     }).rejects.toBeInstanceOf(AppError)
   })

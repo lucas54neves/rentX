@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe'
 import { AppError } from '@shared/errors'
 import { CategoryCreationRequest } from '@modules/cars/dtos'
 import { ICategoriesRepository } from '@modules/cars/repositories'
+import { Category } from '@modules/cars/infra/typeorm/entities'
 
 @injectable()
 class CategoryCreationUseCase {
@@ -20,7 +21,7 @@ class CategoryCreationUseCase {
       throw new AppError('Category already exists')
     }
 
-    this.categoriesRepository.create({ name, description })
+    await this.categoriesRepository.create({ name, description })
   }
 }
 

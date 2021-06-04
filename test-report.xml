@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/home/lucas/Projects/Personal/rentX/src/modules/cars/useCases/specificationListing/SpecificationListingUseCase.spec.ts">
+    <testCase name="Specification listing should be able to listing specifications" duration="14"/>
+  </file>
+  <file path="/home/lucas/Projects/Personal/rentX/src/modules/accounts/useCases/userCreation/UserCreationUseCase.spec.ts">
+    <testCase name="Create user should be able to create a new user" duration="141"/>
+    <testCase name="Create user should not be able to create a new user with email in use" duration="3"/>
+    <testCase name="Create user should not be able to create a new user with username in use" duration="1"/>
+  </file>
+  <file path="/home/lucas/Projects/Personal/rentX/src/modules/cars/useCases/categoryListing/CategoryListingUseCase.spec.ts">
+    <testCase name="Category listing shoud be able to listing categories" duration="9"/>
+  </file>
+  <file path="/home/lucas/Projects/Personal/rentX/src/modules/cars/useCases/categoryCreation/CategoryCreationUseCase.spec.ts">
+    <testCase name="Category creation should be able to create a new category" duration="5"/>
+    <testCase name="Category creation should not be able to create a new category with name exists" duration="2"/>
+  </file>
+  <file path="/home/lucas/Projects/Personal/rentX/src/modules/accounts/useCases/userAuthentication/UserAuthenticationUseCase.spec.ts">
+    <testCase name="User authentication should be able to authenticate an user" duration="142"/>
+    <testCase name="User authentication shout not be able to authenticate an nonexistent user" duration="2"/>
+    <testCase name="User authentication shout not be able to authenticate with incorrect password" duration="1"/>
+  </file>
+  <file path="/home/lucas/Projects/Personal/rentX/src/modules/cars/useCases/specificationCreation/SpecificationCreationUseCase.spec.ts">
+    <testCase name="Specification creation should be able to create a new specification" duration="4"/>
+    <testCase name="Specification creation should not be able to create a new specification with name exists" duration="2"/>
+  </file>
+</testExecutions>

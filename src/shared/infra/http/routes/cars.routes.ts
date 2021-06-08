@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { CarCreationController } from '@modules/cars/useCases/createCar/CarCreationController'
+import { CarCreationController } from '@modules/cars/useCases/carCreation/CarCreationController'
 import {
   ensureAdmin,
   ensureAuthenticated

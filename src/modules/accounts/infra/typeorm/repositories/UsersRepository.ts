@@ -2,9 +2,9 @@ import { getRepository, Repository } from 'typeorm'
 
 import { UserCreationRequest } from '@modules/accounts/dtos'
 import { User } from '@modules/accounts/infra/typeorm/entities'
-import { IUsersRepository } from '@modules/accounts/repositories'
+import { UsersRepositoryInterface } from '@modules/accounts/repositories'
 
-class UsersRepository implements IUsersRepository {
+class UsersRepository implements UsersRepositoryInterface {
   private repository: Repository<User>
 
   constructor() {

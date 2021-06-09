@@ -1,8 +1,8 @@
 import { UserCreationRequest } from '@modules/accounts/dtos'
 import { User } from '@modules/accounts/infra/typeorm/entities'
-import { IUsersRepository } from '../IUsersRepository'
+import { UsersRepositoryInterface } from '../UsersRepositoryInterface'
 
-class UsersRepositoryInMemory implements IUsersRepository {
+class UsersRepositoryInMemory implements UsersRepositoryInterface {
   private users: User[]
 
   constructor() {

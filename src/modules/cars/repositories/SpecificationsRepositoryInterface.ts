@@ -1,7 +1,7 @@
 import { Specification } from '../infra/typeorm/entities'
 import { SpecificationCreationRequest } from '../dtos'
 
-export interface ISpecificationsRepository {
+export interface SpecificationsRepositoryInterface {
   create({ name, description }: SpecificationCreationRequest): Promise<void>
   save(specification: Specification): Promise<void>
   list(): Promise<Specification[]>

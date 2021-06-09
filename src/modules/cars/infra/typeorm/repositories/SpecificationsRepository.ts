@@ -2,9 +2,9 @@ import { getRepository, Repository } from 'typeorm'
 
 import { SpecificationCreationRequest } from '@modules/cars/dtos'
 import { Specification } from '@modules/cars/infra/typeorm/entities'
-import { ISpecificationsRepository } from '@modules/cars/repositories'
+import { SpecificationsRepositoryInterface } from '@modules/cars/repositories'
 
-class SpecificationsRepository implements ISpecificationsRepository {
+class SpecificationsRepository implements SpecificationsRepositoryInterface {
   private repository: Repository<Specification>
 
   constructor() {

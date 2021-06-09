@@ -1,8 +1,10 @@
 import { SpecificationCreationRequest } from '@modules/cars/dtos'
 import { Specification } from '@modules/cars/infra/typeorm/entities'
-import { ISpecificationsRepository } from '../ISpecificationsRepository'
+import { SpecificationsRepositoryInterface } from '../SpecificationsRepositoryInterface'
 
-class SpecificationsRespositoryInMemory implements ISpecificationsRepository {
+class SpecificationsRespositoryInMemory
+  implements SpecificationsRepositoryInterface
+{
   private specifications: Specification[]
 
   constructor() {

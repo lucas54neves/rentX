@@ -5,10 +5,13 @@ import {
   ensureAdmin,
   ensureAuthenticated
 } from '@shared/infra/http/middlewares'
+import { ListAvailableCarsController } from '@modules/cars/useCases/listAvailableCars/ListAvailableCarsController'
 
 const carsRoutes = Router()
 
 const carCreationController = new CarCreationController()
+
+const listAvailableCarsController = new ListAvailableCarsController()
 
 carsRoutes.post(
   '/',
@@ -16,5 +19,7 @@ carsRoutes.post(
   ensureAdmin,
   carCreationController.handle
 )
+
+carsRoutes.get('/available', listAvailableCarsController.handle)
 
 export { carsRoutes }

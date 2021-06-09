@@ -1,4 +1,7 @@
-import { CarCreationRequest } from '@modules/cars/dtos'
+import {
+  CarCreationRequest,
+  ListAvailableCarsRequest
+} from '@modules/cars/dtos'
 import { Car } from '@modules/cars/infra/typeorm/entities'
 import { CarsRepositoryInterface } from '../CarsRepositoryInterface'
 
@@ -35,6 +38,20 @@ class CarsRepositoryInMemory implements CarsRepositoryInterface {
 
   async findByLincensePlate(licensePlate: string): Promise<Car | undefined> {
     return this.cars.find((car) => car.licensePlate === licensePlate)
+  }
+
+  async findAvailable({
+    name,
+    brand,
+    categoryId
+  }: ListAvailableCarsRequest): Promise<Car[]> {
+    return this.cars.filter(
+      (car) =>
+        car.available === true ||
+        (name && car.name === name) ||
+        (brand && car.brand === brand) ||
+        (categoryId && car.categoryId === categoryId)
+    )
   }
 }
 

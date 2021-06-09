@@ -1,6 +1,9 @@
 import { getRepository, Repository } from 'typeorm'
 
-import { CarCreationRequest } from '@modules/cars/dtos'
+import {
+  CarCreationRequest,
+  ListAvailableCarsRequest
+} from '@modules/cars/dtos'
 import { CarsRepositoryInterface } from '@modules/cars/repositories'
 import { Car } from '../entities'
 
@@ -41,6 +44,30 @@ class CarsRepository implements CarsRepositoryInterface {
 
   async findByLincensePlate(licensePlate: string): Promise<Car | undefined> {
     return this.repository.findOne({ licensePlate })
+  }
+
+  async findAvailable({
+    name,
+    brand,
+    categoryId
+  }: ListAvailableCarsRequest): Promise<Car[]> {
+    const carsQuery = this.repository
+      .createQueryBuilder('cars')
+      .where('available = :available', { available: true })
+
+    if (name) {
+      carsQuery.andWhere('name = :name', { name })
+    }
+
+    if (brand) {
+      carsQuery.andWhere('brand = :brand', { brand })
+    }
+
+    if (categoryId) {
+      carsQuery.andWhere('"categoryId" = :categoryId', { categoryId })
+    }
+
+    return carsQuery.getMany()
   }
 }
 

@@ -17,7 +17,7 @@ describe('Create car', () => {
         description: 'Test car 1',
         dailyRate: 100,
         licensePlate: 'ABC-123',
-        lineAmount: 60,
+        fineAmount: 60,
         brand: 'The Brand',
         categoryId: 'category'
       },
@@ -26,7 +26,7 @@ describe('Create car', () => {
         description: 'Test car 2',
         dailyRate: 103,
         licensePlate: 'ABC-123',
-        lineAmount: 50,
+        fineAmount: 50,
         brand: 'The New Brand',
         categoryId: 'category 2'
       }

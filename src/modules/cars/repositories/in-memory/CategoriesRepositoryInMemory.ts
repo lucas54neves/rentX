@@ -1,8 +1,8 @@
 import { CategoryCreationRequest } from '@modules/cars/dtos'
 import { Category } from '@modules/cars/infra/typeorm/entities'
-import { ICategoriesRepository } from '../ICategoriesRepository'
+import { CategoriesRepositoryInterface } from '../CategoriesRepositoryInterface'
 
-class CategoriesRepositoryInMemory implements ICategoriesRepository {
+class CategoriesRepositoryInMemory implements CategoriesRepositoryInterface {
   private categories: Category[]
 
   constructor() {

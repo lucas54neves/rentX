@@ -46,7 +46,7 @@ describe('Specification creation', () => {
   })
 
   it('should not be able to create a new specification with name exists', async () => {
-    expect(async () => {
+    await expect(async () => {
       await createSpecificationUseCase.execute({
         name: testSpecifications[0].name,
         description: testSpecifications[0].description

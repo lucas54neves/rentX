@@ -42,8 +42,8 @@ describe('User authentication', () => {
     expect(result).toHaveProperty('token')
   })
 
-  it('shout not be able to authenticate an nonexistent user', () => {
-    expect(async () => {
+  it('shout not be able to authenticate an nonexistent user', async () => {
+    await expect(async () => {
       await authenticateUserUserCase.execute({
         email: 'false@mail.com',
         password: '55Y8Tc+IMN+yJb+Z/UHZz3iJKXNLSdbWv8grYxDEtpo='
@@ -51,8 +51,8 @@ describe('User authentication', () => {
     }).rejects.toBeInstanceOf(AppError)
   })
 
-  it('shout not be able to authenticate with incorrect email', () => {
-    expect(async () => {
+  it('shout not be able to authenticate with incorrect email', async () => {
+    await expect(async () => {
       await createUserUseCase.execute(user)
 
       await authenticateUserUserCase.execute({

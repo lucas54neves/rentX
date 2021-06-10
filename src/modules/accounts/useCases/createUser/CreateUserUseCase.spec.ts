@@ -59,7 +59,7 @@ describe('Create user', () => {
   })
 
   it('should not be able to create a new user with email in use', async () => {
-    expect(async () => {
+    await expect(async () => {
       await createUserUseCase.execute({
         name: testUsers[0].name,
         username: testUsers[0].username,
@@ -79,7 +79,7 @@ describe('Create user', () => {
   })
 
   it('should not be able to create a new user with username in use', async () => {
-    expect(async () => {
+    await expect(async () => {
       await createUserUseCase.execute({
         name: testUsers[0].name,
         username: testUsers[0].username,

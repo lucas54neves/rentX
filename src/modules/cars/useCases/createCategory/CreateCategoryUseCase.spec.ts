@@ -45,7 +45,7 @@ describe('Category creation', () => {
   })
 
   it('should not be able to create a new category with name exists', async () => {
-    expect(async () => {
+    await expect(async () => {
       await categoryCreationUseCase.execute({
         name: testCategories[0].name,
         description: testCategories[0].description

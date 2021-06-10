@@ -1,4 +1,4 @@
-import { CarCreationRequest } from '@modules/cars/dtos'
+import { CreateCarRequest } from '@modules/cars/dtos'
 import { Car } from '@modules/cars/infra/typeorm/entities'
 import { CarsRepositoryInMemory } from '@modules/cars/repositories'
 import { ListAvailableCarsUseCase } from './ListAvailableCarsUseCase'
@@ -7,7 +7,7 @@ let listAvailableCarsUseCase: ListAvailableCarsUseCase
 
 let carsRepositoryInMemory: CarsRepositoryInMemory
 
-let testCars: CarCreationRequest[]
+let testCars: CreateCarRequest[]
 
 describe('Car listing', () => {
   beforeAll(() => {
@@ -53,7 +53,7 @@ describe('Car listing', () => {
   it('should be able to list all available cars', async () => {
     const cars: Car[] = []
 
-    testCars.forEach(async (car: CarCreationRequest) => {
+    testCars.forEach(async (car: CreateCarRequest) => {
       cars.push(await carsRepositoryInMemory.create(car))
     })
 

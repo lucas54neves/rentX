@@ -1,4 +1,4 @@
-import { CategoryCreationRequest } from '@modules/cars/dtos'
+import { CreateCategoryRequest } from '@modules/cars/dtos'
 import { Category } from '@modules/cars/infra/typeorm/entities'
 import { CategoriesRepositoryInterface } from '../CategoriesRepositoryInterface'
 
@@ -9,7 +9,7 @@ class CategoriesRepositoryInMemory implements CategoriesRepositoryInterface {
     this.categories = []
   }
 
-  async create({ name, description }: CategoryCreationRequest): Promise<void> {
+  async create({ name, description }: CreateCategoryRequest): Promise<void> {
     const category = new Category(name, description)
 
     await this.save(category)

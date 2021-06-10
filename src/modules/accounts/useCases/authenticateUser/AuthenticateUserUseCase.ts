@@ -4,13 +4,13 @@ import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@shared/errors'
 import {
-  UserAuthenticationRequest,
-  UserAuthenticationResponse
+  AuthenticateUserRequest,
+  AuthenticateUserResponse
 } from '@modules/accounts/dtos'
 import { UsersRepositoryInterface } from '@modules/accounts/repositories'
 
 @injectable()
-class UserAuthenticationUseCase {
+class AuthenticateUserUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: UsersRepositoryInterface
@@ -19,7 +19,7 @@ class UserAuthenticationUseCase {
   async execute({
     email,
     password
-  }: UserAuthenticationRequest): Promise<UserAuthenticationResponse> {
+  }: AuthenticateUserRequest): Promise<AuthenticateUserResponse> {
     const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {
@@ -47,4 +47,4 @@ class UserAuthenticationUseCase {
   }
 }
 
-export { UserAuthenticationUseCase }
+export { AuthenticateUserUseCase }

@@ -1,4 +1,4 @@
-export * from './UserAuthenticationRequest'
-export * from './UserAuthenticationResponse'
+export * from './AuthenticateUserRequest'
+export * from './AuthenticateUserResponse'
 export * from './UserCreationRequest'
 export * from './UpdateUserAvatarRequest'

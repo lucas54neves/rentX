@@ -2,11 +2,11 @@ import { AppError } from '@shared/errors'
 import { UserCreationRequest } from '@modules/accounts/dtos'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
 import { UserCreationUseCase } from '../userCreation/UserCreationUseCase'
-import { UserAuthenticationUseCase } from './UserAuthenticationUseCase'
+import { AuthenticateUserUseCase } from './AuthenticateUserUseCase'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory
 
-let userAuthenticationUserCase: UserAuthenticationUseCase
+let authenticateUserUserCase: AuthenticateUserUseCase
 
 let userCreationUseCase: UserCreationUseCase
 
@@ -16,7 +16,7 @@ describe('User authentication', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory()
 
-    userAuthenticationUserCase = new UserAuthenticationUseCase(
+    authenticateUserUserCase = new AuthenticateUserUseCase(
       usersRepositoryInMemory
     )
 
@@ -34,7 +34,7 @@ describe('User authentication', () => {
   it('should be able to authenticate an user', async () => {
     await userCreationUseCase.execute(user)
 
-    const result = await userAuthenticationUserCase.execute({
+    const result = await authenticateUserUserCase.execute({
       email: user.email,
       password: user.password
     })
@@ -44,7 +44,7 @@ describe('User authentication', () => {
 
   it('shout not be able to authenticate an nonexistent user', () => {
     expect(async () => {
-      await userAuthenticationUserCase.execute({
+      await authenticateUserUserCase.execute({
         email: 'false@mail.com',
         password: '55Y8Tc+IMN+yJb+Z/UHZz3iJKXNLSdbWv8grYxDEtpo='
       })
@@ -55,7 +55,7 @@ describe('User authentication', () => {
     expect(async () => {
       await userCreationUseCase.execute(user)
 
-      await userAuthenticationUserCase.execute({
+      await authenticateUserUserCase.execute({
         email: 'false@mail.com',
         password: user.password
       })
@@ -66,7 +66,7 @@ describe('User authentication', () => {
     expect(async () => {
       await userCreationUseCase.execute(user)
 
-      await userAuthenticationUserCase.execute({
+      await authenticateUserUserCase.execute({
         email: user.email,
         password: '55Y8Tc+IMN+yJb+Z/UHZz3iJKXNLSdbWv8grYxDEtpo='
       })

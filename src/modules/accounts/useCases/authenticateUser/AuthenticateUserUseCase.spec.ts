@@ -1,16 +1,16 @@
 import { AppError } from '@shared/errors'
-import { UserCreationRequest } from '@modules/accounts/dtos'
+import { CreateUserRequest } from '@modules/accounts/dtos'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
-import { UserCreationUseCase } from '../userCreation/UserCreationUseCase'
+import { CreateUserUseCase } from '../createUser/CreateUserUseCase'
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory
 
 let authenticateUserUserCase: AuthenticateUserUseCase
 
-let userCreationUseCase: UserCreationUseCase
+let createUserUseCase: CreateUserUseCase
 
-let user: UserCreationRequest
+let user: CreateUserRequest
 
 describe('User authentication', () => {
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('User authentication', () => {
       usersRepositoryInMemory
     )
 
-    userCreationUseCase = new UserCreationUseCase(usersRepositoryInMemory)
+    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory)
 
     user = {
       name: 'User Test',
@@ -32,7 +32,7 @@ describe('User authentication', () => {
   })
 
   it('should be able to authenticate an user', async () => {
-    await userCreationUseCase.execute(user)
+    await createUserUseCase.execute(user)
 
     const result = await authenticateUserUserCase.execute({
       email: user.email,
@@ -53,7 +53,7 @@ describe('User authentication', () => {
 
   it('shout not be able to authenticate with incorrect email', () => {
     expect(async () => {
-      await userCreationUseCase.execute(user)
+      await createUserUseCase.execute(user)
 
       await authenticateUserUserCase.execute({
         email: 'false@mail.com',
@@ -64,7 +64,7 @@ describe('User authentication', () => {
 
   it('shout not be able to authenticate with incorrect password', () => {
     expect(async () => {
-      await userCreationUseCase.execute(user)
+      await createUserUseCase.execute(user)
 
       await authenticateUserUserCase.execute({
         email: user.email,

@@ -1,4 +1,4 @@
-import { UserCreationRequest } from '@modules/accounts/dtos'
+import { CreateUserRequest } from '@modules/accounts/dtos'
 import { User } from '@modules/accounts/infra/typeorm/entities'
 import { UsersRepositoryInterface } from '../UsersRepositoryInterface'
 
@@ -9,7 +9,7 @@ class UsersRepositoryInMemory implements UsersRepositoryInterface {
     this.users = []
   }
 
-  async create(data: UserCreationRequest): Promise<void> {
+  async create(data: CreateUserRequest): Promise<void> {
     const user = new User(
       data.name,
       data.username,

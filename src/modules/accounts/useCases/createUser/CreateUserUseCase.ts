@@ -2,11 +2,11 @@ import { hash } from 'bcrypt'
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@shared/errors'
-import { UserCreationRequest } from '@modules/accounts/dtos'
+import { CreateUserRequest } from '@modules/accounts/dtos'
 import { UsersRepositoryInterface } from '@modules/accounts/repositories'
 
 @injectable()
-class UserCreationUseCase {
+class CreateUserUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: UsersRepositoryInterface
@@ -18,7 +18,7 @@ class UserCreationUseCase {
     email,
     password,
     driverLicense
-  }: UserCreationRequest) {
+  }: CreateUserRequest) {
     const emailAlreadyInUse = await this.usersRepository.findByEmail(email)
 
     if (emailAlreadyInUse) {
@@ -45,4 +45,4 @@ class UserCreationUseCase {
   }
 }
 
-export { UserCreationUseCase }
+export { CreateUserUseCase }

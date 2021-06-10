@@ -1,13 +1,13 @@
-import { UserCreationRequest } from '@modules/accounts/dtos'
+import { CreateUserRequest } from '@modules/accounts/dtos'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories'
 import { AppError } from '@shared/errors'
-import { UserCreationUseCase } from './UserCreationUseCase'
+import { CreateUserUseCase } from './CreateUserUseCase'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory
 
-let userCreationUseCase: UserCreationUseCase
+let createUserUseCase: CreateUserUseCase
 
-let testUsers: UserCreationRequest[]
+let testUsers: CreateUserRequest[]
 
 describe('Create user', () => {
   beforeAll(() => {
@@ -39,11 +39,11 @@ describe('Create user', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory()
 
-    userCreationUseCase = new UserCreationUseCase(usersRepositoryInMemory)
+    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory)
   })
 
   it('should be able to create a new user', async () => {
-    await userCreationUseCase.execute({
+    await createUserUseCase.execute({
       name: testUsers[0].name,
       username: testUsers[0].username,
       email: testUsers[0].email,
@@ -60,7 +60,7 @@ describe('Create user', () => {
 
   it('should not be able to create a new user with email in use', async () => {
     expect(async () => {
-      await userCreationUseCase.execute({
+      await createUserUseCase.execute({
         name: testUsers[0].name,
         username: testUsers[0].username,
         email: testUsers[0].email,
@@ -68,7 +68,7 @@ describe('Create user', () => {
         driverLicense: testUsers[0].driverLicense
       })
 
-      await userCreationUseCase.execute({
+      await createUserUseCase.execute({
         name: testUsers[1].name,
         username: testUsers[1].username,
         email: testUsers[1].email,
@@ -80,7 +80,7 @@ describe('Create user', () => {
 
   it('should not be able to create a new user with username in use', async () => {
     expect(async () => {
-      await userCreationUseCase.execute({
+      await createUserUseCase.execute({
         name: testUsers[0].name,
         username: testUsers[0].username,
         email: testUsers[0].email,
@@ -88,7 +88,7 @@ describe('Create user', () => {
         driverLicense: testUsers[0].driverLicense
       })
 
-      await userCreationUseCase.execute({
+      await createUserUseCase.execute({
         name: testUsers[2].name,
         username: testUsers[2].username,
         email: testUsers[2].email,

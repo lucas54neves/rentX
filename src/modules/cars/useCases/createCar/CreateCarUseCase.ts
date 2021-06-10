@@ -1,11 +1,12 @@
-import { CarCreationRequest } from '@modules/cars/dtos'
+import { inject, injectable } from 'tsyringe'
+
+import { CreateCarRequest } from '@modules/cars/dtos'
 import { Car } from '@modules/cars/infra/typeorm/entities'
 import { CarsRepositoryInterface } from '@modules/cars/repositories'
 import { AppError } from '@shared/errors'
-import { inject, injectable } from 'tsyringe'
 
 @injectable()
-class CarCreationUseCase {
+class CreateCarUseCase {
   constructor(
     @inject('CarsRepository')
     private carsRepository: CarsRepositoryInterface
@@ -19,7 +20,7 @@ class CarCreationUseCase {
     fineAmount,
     brand,
     categoryId
-  }: CarCreationRequest): Promise<Car> {
+  }: CreateCarRequest): Promise<Car> {
     const carAlreadyExists = await this.carsRepository.findByLincensePlate(
       licensePlate
     )
@@ -40,4 +41,4 @@ class CarCreationUseCase {
   }
 }
 
-export { CarCreationUseCase }
+export { CreateCarUseCase }

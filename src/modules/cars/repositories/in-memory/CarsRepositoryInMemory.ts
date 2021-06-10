@@ -1,7 +1,4 @@
-import {
-  CarCreationRequest,
-  ListAvailableCarsRequest
-} from '@modules/cars/dtos'
+import { CreateCarRequest, ListAvailableCarsRequest } from '@modules/cars/dtos'
 import { Car } from '@modules/cars/infra/typeorm/entities'
 import { CarsRepositoryInterface } from '../CarsRepositoryInterface'
 
@@ -16,7 +13,7 @@ class CarsRepositoryInMemory implements CarsRepositoryInterface {
     fineAmount,
     brand,
     categoryId
-  }: CarCreationRequest): Promise<Car> {
+  }: CreateCarRequest): Promise<Car> {
     const car = new Car(
       name,
       description,

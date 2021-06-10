@@ -1,4 +1,4 @@
-export type CarCreationRequest = {
+export type CreateCarRequest = {
   name: string
   description: string
   dailyRate: number

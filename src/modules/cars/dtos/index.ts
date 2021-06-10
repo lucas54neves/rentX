@@ -1,4 +1,4 @@
-export * from './CarCreationRequest'
+export * from './CreateCarRequest'
 export * from './ListAvailableCarsRequest'
 export * from './CategoryCreationRequest'
 export * from './CategoryImportingRequest'

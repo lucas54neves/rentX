@@ -1,9 +1,6 @@
 import { getRepository, Repository } from 'typeorm'
 
-import {
-  CarCreationRequest,
-  ListAvailableCarsRequest
-} from '@modules/cars/dtos'
+import { CreateCarRequest, ListAvailableCarsRequest } from '@modules/cars/dtos'
 import { CarsRepositoryInterface } from '@modules/cars/repositories'
 import { Car } from '../entities'
 
@@ -22,7 +19,7 @@ class CarsRepository implements CarsRepositoryInterface {
     fineAmount,
     brand,
     categoryId
-  }: CarCreationRequest): Promise<Car> {
+  }: CreateCarRequest): Promise<Car> {
     const car = this.repository.create({
       name,
       description,

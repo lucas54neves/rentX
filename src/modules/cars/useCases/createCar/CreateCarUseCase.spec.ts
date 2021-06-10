@@ -1,13 +1,13 @@
-import { CarCreationRequest } from '@modules/cars/dtos'
+import { CreateCarRequest } from '@modules/cars/dtos'
 import { CarsRepositoryInMemory } from '@modules/cars/repositories'
 import { AppError } from '@shared/errors'
-import { CarCreationUseCase } from './CarCreationUseCase'
+import { CreateCarUseCase } from './CreateCarUseCase'
 
-let createCarUseCase: CarCreationUseCase
+let createCarUseCase: CreateCarUseCase
 
 let carsRepositoryInMemory: CarsRepositoryInMemory
 
-let testCars: CarCreationRequest[]
+let testCars: CreateCarRequest[]
 
 describe('Create car', () => {
   beforeAll(() => {
@@ -36,7 +36,7 @@ describe('Create car', () => {
   beforeEach(() => {
     carsRepositoryInMemory = new CarsRepositoryInMemory()
 
-    createCarUseCase = new CarCreationUseCase(carsRepositoryInMemory)
+    createCarUseCase = new CreateCarUseCase(carsRepositoryInMemory)
   })
 
   it('should be able to create a new car', async () => {

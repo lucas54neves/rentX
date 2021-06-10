@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm'
 
-import { SpecificationCreationRequest } from '@modules/cars/dtos'
+import { CreateSpecificationRequest } from '@modules/cars/dtos'
 import { Specification } from '@modules/cars/infra/typeorm/entities'
 import { SpecificationsRepositoryInterface } from '@modules/cars/repositories'
 
@@ -14,7 +14,7 @@ class SpecificationsRepository implements SpecificationsRepositoryInterface {
   async create({
     name,
     description
-  }: SpecificationCreationRequest): Promise<void> {
+  }: CreateSpecificationRequest): Promise<void> {
     const specification = this.repository.create({ name, description })
 
     await this.save(specification)

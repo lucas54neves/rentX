@@ -1,13 +1,13 @@
-import { SpecificationCreationRequest } from '@modules/cars/dtos'
+import { CreateSpecificationRequest } from '@modules/cars/dtos'
 import { SpecificationsRespositoryInMemory } from '@modules/cars/repositories'
 import { AppError } from '@shared/errors'
-import { SpecificationCreationUseCase } from './SpecificationCreationUseCase'
+import { CreateSpecificationUseCase } from './CreateSpecificationUseCase'
 
 let specificationsRespositoryInMemory: SpecificationsRespositoryInMemory
 
-let specificationCreationUseCase: SpecificationCreationUseCase
+let createSpecificationUseCase: CreateSpecificationUseCase
 
-let testSpecifications: SpecificationCreationRequest[]
+let testSpecifications: CreateSpecificationRequest[]
 
 describe('Specification creation', () => {
   beforeAll(() => {
@@ -26,13 +26,13 @@ describe('Specification creation', () => {
   beforeEach(() => {
     specificationsRespositoryInMemory = new SpecificationsRespositoryInMemory()
 
-    specificationCreationUseCase = new SpecificationCreationUseCase(
+    createSpecificationUseCase = new CreateSpecificationUseCase(
       specificationsRespositoryInMemory
     )
   })
 
   it('should be able to create a new specification', async () => {
-    await specificationCreationUseCase.execute({
+    await createSpecificationUseCase.execute({
       name: testSpecifications[0].name,
       description: testSpecifications[0].description
     })
@@ -47,12 +47,12 @@ describe('Specification creation', () => {
 
   it('should not be able to create a new specification with name exists', async () => {
     expect(async () => {
-      await specificationCreationUseCase.execute({
+      await createSpecificationUseCase.execute({
         name: testSpecifications[0].name,
         description: testSpecifications[0].description
       })
 
-      await specificationCreationUseCase.execute({
+      await createSpecificationUseCase.execute({
         name: testSpecifications[1].name,
         description: testSpecifications[1].description
       })

@@ -1,5 +1,5 @@
 import { SpecificationsRespositoryInMemory } from '@modules/cars/repositories'
-import { SpecificationCreationUseCase } from '../specificationCreation/SpecificationCreationUseCase'
+import { CreateSpecificationUseCase } from '../createSpecification/CreateSpecificationUseCase'
 import { SpecificationListingUseCase } from './SpecificationListingUseCase'
 
 type TestSpecification = {
@@ -11,7 +11,7 @@ let specificationsRepositoryInMemory: SpecificationsRespositoryInMemory
 
 let specificationListingUseCase: SpecificationListingUseCase
 
-let specificationCreationUseCase: SpecificationCreationUseCase
+let createSpecificationUseCase: CreateSpecificationUseCase
 
 let testSpecifications: TestSpecification[]
 
@@ -60,7 +60,7 @@ describe('Specification listing', () => {
   beforeEach(() => {
     specificationsRepositoryInMemory = new SpecificationsRespositoryInMemory()
 
-    specificationCreationUseCase = new SpecificationCreationUseCase(
+    createSpecificationUseCase = new CreateSpecificationUseCase(
       specificationsRepositoryInMemory
     )
 
@@ -71,7 +71,7 @@ describe('Specification listing', () => {
 
   it('should be able to listing specifications', async () => {
     testSpecifications.forEach(async (specification: TestSpecification) => {
-      await specificationCreationUseCase.execute({
+      await createSpecificationUseCase.execute({
         name: specification.name,
         description: specification.description
       })

@@ -1,20 +1,20 @@
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@shared/errors'
-import { SpecificationCreationRequest } from '@modules/cars/dtos'
-import { ISpecificationsRepository } from '@modules/cars/repositories'
+import { CreateSpecificationRequest } from '@modules/cars/dtos'
+import { SpecificationsRepositoryInterface } from '@modules/cars/repositories'
 
 @injectable()
-class SpecificationCreationUseCase {
+class CreateSpecificationUseCase {
   constructor(
     @inject('SpecificationsRepository')
-    private specificationsRepository: ISpecificationsRepository
+    private specificationsRepository: SpecificationsRepositoryInterface
   ) {}
 
   async execute({
     name,
     description
-  }: SpecificationCreationRequest): Promise<void> {
+  }: CreateSpecificationRequest): Promise<void> {
     const specificationAlreadyExists =
       await this.specificationsRepository.findByName(name)
 
@@ -26,4 +26,4 @@ class SpecificationCreationUseCase {
   }
 }
 
-export { SpecificationCreationUseCase }
+export { CreateSpecificationUseCase }

@@ -1,17 +1,17 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import { SpecificationCreationUseCase } from './SpecificationCreationUseCase'
+import { CreateSpecificationUseCase } from './CreateSpecificationUseCase'
 
-export class SpecificationCreationController {
+export class CreateSpecificationController {
   async handle(request: Request, response: Response) {
     const { name, description } = request.body
 
     try {
-      const specificationCreationUseCase = container.resolve(
-        SpecificationCreationUseCase
+      const createSpecificationUseCase = container.resolve(
+        CreateSpecificationUseCase
       )
 
-      await specificationCreationUseCase.execute({ name, description })
+      await createSpecificationUseCase.execute({ name, description })
     } catch (error) {
       return response.status(400).json({ message: error.message })
     }

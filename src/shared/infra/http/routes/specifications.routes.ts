@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { SpecificationCreationController } from '@modules/cars/useCases/specificationCreation/SpecificationCreationController'
+import { CreateSpecificationController } from '@modules/cars/useCases/createSpecification/CreateSpecificationController'
 import { SpecificationListingController } from '@modules/cars/useCases/specificationListing/SpecificationListingController'
 import {
   ensureAdmin,
@@ -9,7 +9,7 @@ import {
 
 const specificationsRoutes = Router()
 
-const specificationCreationController = new SpecificationCreationController()
+const createSpecificationController = new CreateSpecificationController()
 
 const specificationListingController = new SpecificationListingController()
 
@@ -17,7 +17,7 @@ specificationsRoutes.post(
   '/',
   ensureAuthenticated,
   ensureAdmin,
-  specificationCreationController.handle
+  createSpecificationController.handle
 )
 
 specificationsRoutes.get(

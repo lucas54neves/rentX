@@ -1,6 +1,6 @@
 import { SpecificationsRespositoryInMemory } from '@modules/cars/repositories'
 import { CreateSpecificationUseCase } from '../createSpecification/CreateSpecificationUseCase'
-import { SpecificationListingUseCase } from './SpecificationListingUseCase'
+import { ListSpecificationsUseCase } from './ListSpecificationsUseCase'
 
 type TestSpecification = {
   name: string
@@ -9,7 +9,7 @@ type TestSpecification = {
 
 let specificationsRepositoryInMemory: SpecificationsRespositoryInMemory
 
-let specificationListingUseCase: SpecificationListingUseCase
+let listSpecificationsUseCase: ListSpecificationsUseCase
 
 let createSpecificationUseCase: CreateSpecificationUseCase
 
@@ -64,7 +64,7 @@ describe('Specification listing', () => {
       specificationsRepositoryInMemory
     )
 
-    specificationListingUseCase = new SpecificationListingUseCase(
+    listSpecificationsUseCase = new ListSpecificationsUseCase(
       specificationsRepositoryInMemory
     )
   })
@@ -77,7 +77,7 @@ describe('Specification listing', () => {
       })
     })
 
-    const specificationsCreated = await specificationListingUseCase.execute()
+    const specificationsCreated = await listSpecificationsUseCase.execute()
 
     expect(specificationsCreated.length).toBe(testSpecifications.length)
   })

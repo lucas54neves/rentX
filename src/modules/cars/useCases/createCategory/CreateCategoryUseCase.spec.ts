@@ -1,13 +1,13 @@
 import { AppError } from '@shared/errors'
 import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory'
-import { CategoryCreationUseCase } from './CategoryCreationUseCase'
-import { CategoryCreationRequest } from '@modules/cars/dtos'
+import { CreateCategoryUseCase } from './CreateCategoryUseCase'
+import { CreateCategoryRequest } from '@modules/cars/dtos'
 
-let categoryCreationUseCase: CategoryCreationUseCase
+let categoryCreationUseCase: CreateCategoryUseCase
 
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory
 
-let testCategories: CategoryCreationRequest[]
+let testCategories: CreateCategoryRequest[]
 
 describe('Category creation', () => {
   beforeAll(() => {
@@ -26,7 +26,7 @@ describe('Category creation', () => {
   beforeEach(() => {
     categoriesRepositoryInMemory = new CategoriesRepositoryInMemory()
 
-    categoryCreationUseCase = new CategoryCreationUseCase(
+    categoryCreationUseCase = new CreateCategoryUseCase(
       categoriesRepositoryInMemory
     )
   })

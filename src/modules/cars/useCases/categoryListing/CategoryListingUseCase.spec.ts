@@ -1,5 +1,5 @@
 import { CategoriesRepositoryInMemory } from '@modules/cars/repositories'
-import { CategoryCreationUseCase } from '../categoryCreation/CategoryCreationUseCase'
+import { CreateCategoryUseCase } from '../createCategory/CreateCategoryUseCase'
 import { CategoryListingUseCase } from './CategoryListingUseCase'
 
 type TestCategory = {
@@ -11,7 +11,7 @@ let categoriesRepositoryInMemory: CategoriesRepositoryInMemory
 
 let categoryListingUseCase: CategoryListingUseCase
 
-let categoryCreationUseCase: CategoryCreationUseCase
+let categoryCreationUseCase: CreateCategoryUseCase
 
 let testCategories: TestCategory[]
 
@@ -60,7 +60,7 @@ describe('Category listing', () => {
   beforeEach(() => {
     categoriesRepositoryInMemory = new CategoriesRepositoryInMemory()
 
-    categoryCreationUseCase = new CategoryCreationUseCase(
+    categoryCreationUseCase = new CreateCategoryUseCase(
       categoriesRepositoryInMemory
     )
 

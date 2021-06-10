@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm'
 
-import { CategoryCreationRequest } from '@modules/cars/dtos'
+import { CreateCategoryRequest } from '@modules/cars/dtos'
 import { Category } from '@modules/cars/infra/typeorm/entities'
 import { CategoriesRepositoryInterface } from '@modules/cars/repositories'
 
@@ -11,7 +11,7 @@ class CategoriesRepository implements CategoriesRepositoryInterface {
     this.repository = getRepository(Category)
   }
 
-  async create({ name, description }: CategoryCreationRequest): Promise<void> {
+  async create({ name, description }: CreateCategoryRequest): Promise<void> {
     const category = this.repository.create({
       name,
       description

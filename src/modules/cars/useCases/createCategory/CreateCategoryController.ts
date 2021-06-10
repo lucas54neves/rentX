@@ -1,14 +1,14 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
-import { CategoryCreationUseCase } from './CategoryCreationUseCase'
+import { CreateCategoryUseCase } from './CreateCategoryUseCase'
 
-class CategoryCreationController {
+class CreateCategoryController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { name, description } = request.body
 
     try {
-      const categoryCreationUseCase = container.resolve(CategoryCreationUseCase)
+      const categoryCreationUseCase = container.resolve(CreateCategoryUseCase)
 
       await categoryCreationUseCase.execute({ name, description })
     } catch (error) {
@@ -19,4 +19,4 @@ class CategoryCreationController {
   }
 }
 
-export { CategoryCreationController }
+export { CreateCategoryController }

@@ -1,5 +1,5 @@
 export * from './CreateCarRequest'
 export * from './ListAvailableCarsRequest'
-export * from './CategoryCreationRequest'
+export * from './CreateCategoryRequest'
 export * from './CategoryImportingRequest'
 export * from './SpecificationCreationRequest'

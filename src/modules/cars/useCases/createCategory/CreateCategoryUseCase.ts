@@ -1,18 +1,18 @@
 import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@shared/errors'
-import { CategoryCreationRequest } from '@modules/cars/dtos'
-import { ICategoriesRepository } from '@modules/cars/repositories'
+import { CreateCategoryRequest } from '@modules/cars/dtos'
+import { CategoriesRepositoryInterface } from '@modules/cars/repositories'
 import { Category } from '@modules/cars/infra/typeorm/entities'
 
 @injectable()
-class CategoryCreationUseCase {
+class CreateCategoryUseCase {
   constructor(
     @inject('CategoriesRepository')
-    private categoriesRepository: ICategoriesRepository
+    private categoriesRepository: CategoriesRepositoryInterface
   ) {}
 
-  async execute({ name, description }: CategoryCreationRequest): Promise<void> {
+  async execute({ name, description }: CreateCategoryRequest): Promise<void> {
     const categoryAlreadyExists = await this.categoriesRepository.findByName(
       name
     )
@@ -25,4 +25,4 @@ class CategoryCreationUseCase {
   }
 }
 
-export { CategoryCreationUseCase }
+export { CreateCategoryUseCase }

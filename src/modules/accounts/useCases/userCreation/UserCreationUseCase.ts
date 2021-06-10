@@ -3,13 +3,13 @@ import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@shared/errors'
 import { UserCreationRequest } from '@modules/accounts/dtos'
-import { IUsersRepository } from '@modules/accounts/repositories'
+import { UsersRepositoryInterface } from '@modules/accounts/repositories'
 
 @injectable()
 class UserCreationUseCase {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: UsersRepositoryInterface
   ) {}
 
   async execute({

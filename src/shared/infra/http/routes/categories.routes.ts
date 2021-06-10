@@ -3,7 +3,7 @@ import multer from 'multer'
 
 import { CreateCategoryController } from '@modules/cars/useCases/createCategory/CreateCategoryController'
 import { ImportCategoryController } from '@modules/cars/useCases/importCategory/ImportCategoryController'
-import { CategoryListingController } from '@modules/cars/useCases/categoryListing/CategoryListingController'
+import { ListCategoriesController } from '@modules/cars/useCases/listCategories/ListCategoriesController'
 import {
   ensureAdmin,
   ensureAuthenticated
@@ -22,7 +22,7 @@ const categoryCreationController = new CreateCategoryController()
 
 const importCategoryController = new ImportCategoryController()
 
-const categoryListingController = new CategoryListingController()
+const listCategoriesController = new ListCategoriesController()
 
 categoriesRoutes.post(
   '/',
@@ -31,7 +31,7 @@ categoriesRoutes.post(
   categoryCreationController.handle
 )
 
-categoriesRoutes.get('/', categoryListingController.handle)
+categoriesRoutes.get('/', listCategoriesController.handle)
 
 categoriesRoutes.post(
   '/import',

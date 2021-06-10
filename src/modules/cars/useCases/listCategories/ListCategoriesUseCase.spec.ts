@@ -1,6 +1,6 @@
 import { CategoriesRepositoryInMemory } from '@modules/cars/repositories'
 import { CreateCategoryUseCase } from '../createCategory/CreateCategoryUseCase'
-import { CategoryListingUseCase } from './CategoryListingUseCase'
+import { ListCategoriesUseCase } from './ListCategoriesUseCase'
 
 type TestCategory = {
   name: string
@@ -9,7 +9,7 @@ type TestCategory = {
 
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory
 
-let categoryListingUseCase: CategoryListingUseCase
+let listCategoriesUseCase: ListCategoriesUseCase
 
 let categoryCreationUseCase: CreateCategoryUseCase
 
@@ -64,7 +64,7 @@ describe('Category listing', () => {
       categoriesRepositoryInMemory
     )
 
-    categoryListingUseCase = new CategoryListingUseCase(
+    listCategoriesUseCase = new ListCategoriesUseCase(
       categoriesRepositoryInMemory
     )
   })
@@ -77,7 +77,7 @@ describe('Category listing', () => {
       })
     })
 
-    const categoriesCreated = await categoryListingUseCase.execute()
+    const categoriesCreated = await listCategoriesUseCase.execute()
 
     expect(categoriesCreated.length).toBe(testCategories.length)
   })

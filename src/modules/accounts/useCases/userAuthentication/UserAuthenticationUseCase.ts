@@ -7,13 +7,13 @@ import {
   UserAuthenticationRequest,
   UserAuthenticationResponse
 } from '@modules/accounts/dtos'
-import { IUsersRepository } from '@modules/accounts/repositories'
+import { UsersRepositoryInterface } from '@modules/accounts/repositories'
 
 @injectable()
 class UserAuthenticationUseCase {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: UsersRepositoryInterface
   ) {}
 
   async execute({

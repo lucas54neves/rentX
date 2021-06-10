@@ -2,21 +2,19 @@ import csvParse from 'csv-parse'
 import fs from 'fs'
 import { inject, injectable } from 'tsyringe'
 
-import { CategoryImportingRequest } from '@modules/cars/dtos'
+import { ImportCategoryRequest } from '@modules/cars/dtos'
 import { ICategoriesRepository } from '@modules/cars/repositories'
 
 @injectable()
-class CategoryImportingUseCase {
+class ImportCategoryUseCase {
   constructor(
     @inject('CategoriesRepository')
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  loadCategories(
-    file: Express.Multer.File
-  ): Promise<CategoryImportingRequest[]> {
+  loadCategories(file: Express.Multer.File): Promise<ImportCategoryRequest[]> {
     return new Promise((resolve, reject) => {
-      const categories: CategoryImportingRequest[] = []
+      const categories: ImportCategoryRequest[] = []
 
       const stream = fs.createReadStream(file.path)
 
@@ -61,4 +59,4 @@ class CategoryImportingUseCase {
   }
 }
 
-export { CategoryImportingUseCase }
+export { ImportCategoryUseCase }

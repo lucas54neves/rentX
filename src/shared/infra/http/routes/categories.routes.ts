@@ -2,7 +2,7 @@ import { Router } from 'express'
 import multer from 'multer'
 
 import { CreateCategoryController } from '@modules/cars/useCases/createCategory/CreateCategoryController'
-import { CategoryImportingController } from '@modules/cars/useCases/categoryImporting/CategoryImportingController'
+import { ImportCategoryController } from '@modules/cars/useCases/importCategory/ImportCategoryController'
 import { CategoryListingController } from '@modules/cars/useCases/categoryListing/CategoryListingController'
 import {
   ensureAdmin,
@@ -20,7 +20,7 @@ const categoriesRoutes = Router()
 
 const categoryCreationController = new CreateCategoryController()
 
-const categoryImportingController = new CategoryImportingController()
+const importCategoryController = new ImportCategoryController()
 
 const categoryListingController = new CategoryListingController()
 
@@ -38,7 +38,7 @@ categoriesRoutes.post(
   upload.single('file'),
   ensureAuthenticated,
   ensureAdmin,
-  categoryImportingController.handle
+  importCategoryController.handle
 )
 
 export { categoriesRoutes }

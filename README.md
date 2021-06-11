@@ -58,8 +58,6 @@ A car rental API
 #### Requisitos funcionais
 
 - [ ] Deve ser possível cadastrar uma especificação para um carro.
-- [ ] Deve ser possível listar todas as especificações.
-- [ ] Deve ser possível listar todas os carros.
 
 #### Regras de negócio
 

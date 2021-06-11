@@ -14,10 +14,12 @@ class SpecificationsRepository implements SpecificationsRepositoryInterface {
   async create({
     name,
     description
-  }: CreateSpecificationRequest): Promise<void> {
+  }: CreateSpecificationRequest): Promise<Specification> {
     const specification = this.repository.create({ name, description })
 
     await this.save(specification)
+
+    return specification
   }
 
   async save(specification: Specification): Promise<void> {
@@ -30,6 +32,10 @@ class SpecificationsRepository implements SpecificationsRepositoryInterface {
 
   async findByName(name: string): Promise<Specification | undefined> {
     return this.repository.findOne({ name })
+  }
+
+  async findByIds(ids: string[]): Promise<Specification[]> {
+    return this.repository.findByIds(ids)
   }
 }
 

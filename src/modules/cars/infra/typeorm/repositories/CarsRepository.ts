@@ -1,8 +1,13 @@
 import { getRepository, Repository } from 'typeorm'
 
-import { CreateCarRequest, ListAvailableCarsRequest } from '@modules/cars/dtos'
+import {
+  AddSpecificationRequest,
+  CreateCarRequest,
+  FindSpecificationInCarsRepositoryRequest,
+  ListAvailableCarsRequest
+} from '@modules/cars/dtos'
 import { CarsRepositoryInterface } from '@modules/cars/repositories'
-import { Car } from '../entities'
+import { Car, Specification } from '../entities'
 
 class CarsRepository implements CarsRepositoryInterface {
   private repository: Repository<Car>
@@ -39,6 +44,10 @@ class CarsRepository implements CarsRepositoryInterface {
     await this.repository.save(car)
   }
 
+  async findById(id: string): Promise<Car | undefined> {
+    return this.repository.findOne(id)
+  }
+
   async findByLincensePlate(licensePlate: string): Promise<Car | undefined> {
     return this.repository.findOne({ licensePlate })
   }
@@ -65,6 +74,34 @@ class CarsRepository implements CarsRepositoryInterface {
     }
 
     return carsQuery.getMany()
+  }
+
+  async addSpecification({
+    car,
+    specification
+  }: AddSpecificationRequest): Promise<void> {
+    if (car.specifications) {
+      car.specifications.push(specification)
+    } else {
+      car.specifications = [specification]
+    }
+
+    await this.save(car)
+  }
+
+  async findSpecification({
+    car,
+    specificationId
+  }: FindSpecificationInCarsRepositoryRequest): Promise<
+    Specification | undefined | null
+  > {
+    if (!car.specifications) {
+      return null
+    }
+
+    return car.specifications.find(
+      (specification) => specification.id === specificationId
+    )
   }
 }
 

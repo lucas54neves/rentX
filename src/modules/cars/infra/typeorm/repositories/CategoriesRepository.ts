@@ -11,13 +11,18 @@ class CategoriesRepository implements CategoriesRepositoryInterface {
     this.repository = getRepository(Category)
   }
 
-  async create({ name, description }: CreateCategoryRequest): Promise<void> {
+  async create({
+    name,
+    description
+  }: CreateCategoryRequest): Promise<Category> {
     const category = this.repository.create({
       name,
       description
     })
 
     await this.save(category)
+
+    return category
   }
 
   async save(category: Category): Promise<void> {

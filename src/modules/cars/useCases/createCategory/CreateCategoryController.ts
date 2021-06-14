@@ -10,12 +10,15 @@ class CreateCategoryController {
     try {
       const categoryCreationUseCase = container.resolve(CreateCategoryUseCase)
 
-      await categoryCreationUseCase.execute({ name, description })
+      const categoryCreated = await categoryCreationUseCase.execute({
+        name,
+        description
+      })
+
+      return response.status(201).json(categoryCreated)
     } catch (error) {
       return response.status(400).json({ message: error.message })
     }
-
-    return response.status(201).send()
   }
 }
 

@@ -9,10 +9,15 @@ class CategoriesRepositoryInMemory implements CategoriesRepositoryInterface {
     this.categories = []
   }
 
-  async create({ name, description }: CreateCategoryRequest): Promise<void> {
+  async create({
+    name,
+    description
+  }: CreateCategoryRequest): Promise<Category> {
     const category = new Category(name, description)
 
     await this.save(category)
+
+    return category
   }
 
   async save(category: Category): Promise<void> {

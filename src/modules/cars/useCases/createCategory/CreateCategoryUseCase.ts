@@ -12,7 +12,10 @@ class CreateCategoryUseCase {
     private categoriesRepository: CategoriesRepositoryInterface
   ) {}
 
-  async execute({ name, description }: CreateCategoryRequest): Promise<void> {
+  async execute({
+    name,
+    description
+  }: CreateCategoryRequest): Promise<Category> {
     const categoryAlreadyExists = await this.categoriesRepository.findByName(
       name
     )
@@ -21,7 +24,7 @@ class CreateCategoryUseCase {
       throw new AppError('Category already exists')
     }
 
-    await this.categoriesRepository.create({ name, description })
+    return this.categoriesRepository.create({ name, description })
   }
 }
 

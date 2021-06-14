@@ -64,7 +64,11 @@ class CarsRepositoryInMemory implements CarsRepositoryInterface {
     car,
     specification
   }: AddSpecificationRequest): Promise<void> {
-    car.specifications.push(specification)
+    if (car.specifications) {
+      car.specifications.push(specification)
+    } else {
+      car.specifications = [specification]
+    }
 
     await this.save(car)
   }

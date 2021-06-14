@@ -1,6 +1,7 @@
 export * from './in-memory/CarsRepositoryInMemory'
 export * from './in-memory/CategoriesRepositoryInMemory'
 export * from './in-memory/SpecificationsRespositoryInMemory'
+export * from './CarsImagesRepositoryInterface'
 export * from './CarsRepositoryInterface'
 export * from './CategoriesRepositoryInterface'
 export * from './SpecificationsRepositoryInterface'

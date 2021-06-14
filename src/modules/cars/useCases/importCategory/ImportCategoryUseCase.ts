@@ -3,13 +3,13 @@ import fs from 'fs'
 import { inject, injectable } from 'tsyringe'
 
 import { ImportCategoryRequest } from '@modules/cars/dtos'
-import { ICategoriesRepository } from '@modules/cars/repositories'
+import { CategoriesRepositoryInterface } from '@modules/cars/repositories'
 
 @injectable()
 class ImportCategoryUseCase {
   constructor(
     @inject('CategoriesRepository')
-    private categoriesRepository: ICategoriesRepository
+    private categoriesRepository: CategoriesRepositoryInterface
   ) {}
 
   loadCategories(file: Express.Multer.File): Promise<ImportCategoryRequest[]> {

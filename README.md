@@ -70,7 +70,6 @@ A car rental API
 #### Requisitos funcionais
 
 - [ ] Deve ser possível cadastrar a imagem do carro.
-- [ ] Deve ser possível listar todos os carros.
 
 #### Requisitos não-funcionais
 

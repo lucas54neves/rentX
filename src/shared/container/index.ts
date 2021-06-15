@@ -1,27 +1,40 @@
 import { container } from 'tsyringe'
 
 import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories/UsersRepository'
-import { IUsersRepository } from '@modules/accounts/repositories'
+import { UsersRepositoryInterface } from '@modules/accounts/repositories'
 import {
   CategoriesRepository,
   SpecificationsRepository
 } from '@modules/cars/infra/typeorm/repositories'
 import {
-  ICategoriesRepository,
-  ISpecificationsRepository
+  CarsRepositoryInterface,
+  CategoriesRepositoryInterface,
+  SpecificationsRepositoryInterface
 } from '@modules/cars/repositories'
+import { CarsRepository } from '@modules/cars/infra/typeorm/repositories/CarsRepository'
+import { CarsImagesRepository } from '@modules/cars/infra/typeorm/repositories/CarsImagesRepository'
 
-container.registerSingleton<ICategoriesRepository>(
+container.registerSingleton<CategoriesRepositoryInterface>(
   'CategoriesRepository',
   CategoriesRepository
 )
 
-container.registerSingleton<ISpecificationsRepository>(
+container.registerSingleton<SpecificationsRepositoryInterface>(
   'SpecificationsRepository',
   SpecificationsRepository
 )
 
-container.registerSingleton<IUsersRepository>(
+container.registerSingleton<UsersRepositoryInterface>(
   'UsersRepository',
   UsersRepository
+)
+
+container.registerSingleton<CarsRepositoryInterface>(
+  'CarsRepository',
+  CarsRepository
+)
+
+container.registerSingleton<CarsImagesRepository>(
+  'CarsImagesRepository',
+  CarsImagesRepository
 )

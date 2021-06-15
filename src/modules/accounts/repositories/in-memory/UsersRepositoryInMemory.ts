@@ -1,15 +1,15 @@
-import { UserCreationRequest } from '@modules/accounts/dtos'
+import { CreateUserRequest } from '@modules/accounts/dtos'
 import { User } from '@modules/accounts/infra/typeorm/entities'
-import { IUsersRepository } from '../IUsersRepository'
+import { UsersRepositoryInterface } from '../UsersRepositoryInterface'
 
-class UsersRepositoryInMemory implements IUsersRepository {
+class UsersRepositoryInMemory implements UsersRepositoryInterface {
   private users: User[]
 
   constructor() {
     this.users = []
   }
 
-  async create(data: UserCreationRequest): Promise<void> {
+  async create(data: CreateUserRequest): Promise<void> {
     const user = new User(
       data.name,
       data.username,

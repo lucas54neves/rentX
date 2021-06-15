@@ -1,2 +1,2 @@
 export * from './in-memory/UsersRepositoryInMemory'
-export * from './IUsersRepository'
+export * from './UsersRepositoryInterface'

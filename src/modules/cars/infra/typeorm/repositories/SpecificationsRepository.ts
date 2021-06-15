@@ -1,10 +1,10 @@
 import { getRepository, Repository } from 'typeorm'
 
-import { SpecificationCreationRequest } from '@modules/cars/dtos'
+import { CreateSpecificationRequest } from '@modules/cars/dtos'
 import { Specification } from '@modules/cars/infra/typeorm/entities'
-import { ISpecificationsRepository } from '@modules/cars/repositories'
+import { SpecificationsRepositoryInterface } from '@modules/cars/repositories'
 
-class SpecificationsRepository implements ISpecificationsRepository {
+class SpecificationsRepository implements SpecificationsRepositoryInterface {
   private repository: Repository<Specification>
 
   constructor() {
@@ -14,10 +14,12 @@ class SpecificationsRepository implements ISpecificationsRepository {
   async create({
     name,
     description
-  }: SpecificationCreationRequest): Promise<void> {
+  }: CreateSpecificationRequest): Promise<Specification> {
     const specification = this.repository.create({ name, description })
 
     await this.save(specification)
+
+    return specification
   }
 
   async save(specification: Specification): Promise<void> {
@@ -30,6 +32,10 @@ class SpecificationsRepository implements ISpecificationsRepository {
 
   async findByName(name: string): Promise<Specification | undefined> {
     return this.repository.findOne({ name })
+  }
+
+  async findByIds(ids: string[]): Promise<Specification[]> {
+    return this.repository.findByIds(ids)
   }
 }
 

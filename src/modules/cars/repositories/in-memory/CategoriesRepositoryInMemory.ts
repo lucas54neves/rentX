@@ -1,18 +1,23 @@
-import { CategoryCreationRequest } from '@modules/cars/dtos'
+import { CreateCategoryRequest } from '@modules/cars/dtos'
 import { Category } from '@modules/cars/infra/typeorm/entities'
-import { ICategoriesRepository } from '../ICategoriesRepository'
+import { CategoriesRepositoryInterface } from '../CategoriesRepositoryInterface'
 
-class CategoriesRepositoryInMemory implements ICategoriesRepository {
+class CategoriesRepositoryInMemory implements CategoriesRepositoryInterface {
   private categories: Category[]
 
   constructor() {
     this.categories = []
   }
 
-  async create({ name, description }: CategoryCreationRequest): Promise<void> {
+  async create({
+    name,
+    description
+  }: CreateCategoryRequest): Promise<Category> {
     const category = new Category(name, description)
 
     await this.save(category)
+
+    return category
   }
 
   async save(category: Category): Promise<void> {

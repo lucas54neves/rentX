@@ -1,10 +1,10 @@
 import { getRepository, Repository } from 'typeorm'
 
-import { UserCreationRequest } from '@modules/accounts/dtos'
+import { CreateUserRequest } from '@modules/accounts/dtos'
 import { User } from '@modules/accounts/infra/typeorm/entities'
-import { IUsersRepository } from '@modules/accounts/repositories'
+import { UsersRepositoryInterface } from '@modules/accounts/repositories'
 
-class UsersRepository implements IUsersRepository {
+class UsersRepository implements UsersRepositoryInterface {
   private repository: Repository<User>
 
   constructor() {
@@ -17,7 +17,7 @@ class UsersRepository implements IUsersRepository {
     email,
     password,
     driverLicense
-  }: UserCreationRequest): Promise<void> {
+  }: CreateUserRequest): Promise<void> {
     const user = this.repository.create({
       name,
       username,

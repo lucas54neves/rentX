@@ -8,6 +8,7 @@ import {
 } from '@modules/cars/dtos'
 import { CarsRepositoryInterface } from '@modules/cars/repositories'
 import { Car, Specification } from '../entities'
+import { addSpecificationToCar, findSpecificationFromCar } from '@utils'
 
 class CarsRepository implements CarsRepositoryInterface {
   private repository: Repository<Car>
@@ -79,29 +80,19 @@ class CarsRepository implements CarsRepositoryInterface {
   async addSpecification({
     car,
     specification
-  }: AddSpecificationRequest): Promise<void> {
-    if (car.specifications) {
-      car.specifications.push(specification)
-    } else {
-      car.specifications = [specification]
-    }
+  }: AddSpecificationRequest): Promise<Car> {
+    const updatedCar = addSpecificationToCar({ car, specification })
 
-    await this.save(car)
+    await this.save(updatedCar)
+
+    return updatedCar
   }
 
-  async findSpecification({
+  findSpecification({
     car,
     specificationId
-  }: FindSpecificationInCarsRepositoryRequest): Promise<
-    Specification | undefined | null
-  > {
-    if (!car.specifications) {
-      return null
-    }
-
-    return car.specifications.find(
-      (specification) => specification.id === specificationId
-    )
+  }: FindSpecificationInCarsRepositoryRequest): Specification | null {
+    return findSpecificationFromCar({ car, specificationId })
   }
 }
 

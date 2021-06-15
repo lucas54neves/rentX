@@ -6,6 +6,7 @@ import {
 } from '@modules/cars/dtos'
 import { Car, Specification } from '@modules/cars/infra/typeorm/entities'
 import { CarsRepositoryInterface } from '../CarsRepositoryInterface'
+import { addSpecificationToCar, findSpecificationFromCar } from '@utils'
 
 class CarsRepositoryInMemory implements CarsRepositoryInterface {
   private cars: Car[] = []
@@ -63,29 +64,19 @@ class CarsRepositoryInMemory implements CarsRepositoryInterface {
   async addSpecification({
     car,
     specification
-  }: AddSpecificationRequest): Promise<void> {
-    if (car.specifications) {
-      car.specifications.push(specification)
-    } else {
-      car.specifications = [specification]
-    }
+  }: AddSpecificationRequest): Promise<Specification> {
+    const updatedCar = addSpecificationToCar({ car, specification })
 
-    await this.save(car)
+    await this.save(updatedCar)
+
+    return updatedCar
   }
 
-  async findSpecification({
+  findSpecification({
     car,
     specificationId
-  }: FindSpecificationInCarsRepositoryRequest): Promise<
-    Specification | undefined | null
-  > {
-    if (!car.specifications) {
-      return null
-    }
-
-    return car.specifications.find(
-      (specification) => specification.id === specificationId
-    )
+  }: FindSpecificationInCarsRepositoryRequest): Specification | null {
+    return findSpecificationFromCar({ car, specificationId })
   }
 }
 

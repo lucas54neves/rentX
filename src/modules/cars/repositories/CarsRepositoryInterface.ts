@@ -14,8 +14,8 @@ interface CarsRepositoryInterface {
   findAvailable(data: ListAvailableCarsRequest): Promise<Car[]>
   findSpecification(
     data: FindSpecificationInCarsRepositoryRequest
-  ): Promise<Specification | undefined | null>
-  addSpecification(data: AddSpecificationRequest): Promise<void>
+  ): Specification | null
+  addSpecification(data: AddSpecificationRequest): Promise<Specification>
 }
 
 export { CarsRepositoryInterface }

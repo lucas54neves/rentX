@@ -2,10 +2,7 @@ import { Router } from 'express'
 import multer from 'multer'
 
 import { CreateCarController } from '@modules/cars/useCases/createCar/CreateCarController'
-import {
-  ensureAdmin,
-  ensureAuthenticated
-} from '@shared/infra/http/middlewares'
+import { ensureAdmin, ensureAuthenticated } from '@shared/infra/http/middleware'
 import { CreateCarSpecificationController } from '@modules/cars/useCases/createCarSpecification/CreateCarSpecificationController'
 import { ListAvailableCarsController } from '@modules/cars/useCases/listAvailableCars/ListAvailableCarsController'
 import { UploadCarImageController } from '@modules/cars/useCases/uploadCarImages/UploadCarImagesController'

@@ -41,6 +41,7 @@ class Rental {
       this.id = uuidV4()
       this.carId = carId
       this.userId = userId
+      this.startDate = new Date()
       this.expectedReturnDate = expectedReturnDate
     }
   }

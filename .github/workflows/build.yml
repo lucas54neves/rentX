@@ -10,6 +10,21 @@ name: Main Workflow
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: postgres        
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v2
         with:
@@ -22,6 +37,13 @@ jobs:
       - name: Install Jest globally
         run: sudo npm install -g jest
       - name: Run Tests
+        env:
+          DATABASE_NAME_TEST: ${{ matrix.database-name }}
+          DATABASE_USER: ${{ matrix.database-user }}
+          DATABASE_PASSWORD: ${{ matrix.database-password }}
+          DATABASE_HOST: ${{ matrix.database-host }}
+          DATABASE_PORT: ${{ matrix.database-port }}
+          POSTGRES_DB: ${{ matrix.database-name }}
         run: npm run test:sonar
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master

@@ -10,6 +10,18 @@ name: Main Workflow
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        database-name:
+        - rentx_test
+        database-password:
+        - postgres
+        database-user:
+        - postgres
+        database-host:
+        - 127.0.0.1
+        database-port:
+        - 5432
     services:
       postgres:
         image: postgres:latest

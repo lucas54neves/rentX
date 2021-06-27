@@ -71,7 +71,7 @@ describe('Create Category Controller', () => {
       .post('/categories')
       .send({
         name: 'Category Test',
-        description: 'Category description test 1'
+        description: 'Category description test 2'
       })
       .set({
         Authorization: `Bearer ${token}`

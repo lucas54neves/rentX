@@ -11,26 +11,25 @@ jobs:
     strategy:
       matrix:
         database-name:
-        - rentx_test
+          - rentx_test
         database-password:
-        - ignite
+          - ignite
         database-user:
-        - docker
+          - docker
         database-host:
-        - 127.0.0.1
+          - 127.0.0.1
         database-port:
-        - 5432
+          - 5432
     services:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: rentx_test        
+          POSTGRES_DB: rentx_test
           POSTGRES_PASSWORD: ignite
           POSTGRES_USER: docker
         ports:
           - 5432:5432
-        options:
-          --health-cmd pg_isready
+        options: --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5

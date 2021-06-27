@@ -10,8 +10,8 @@ import { rentalsRoutes } from './rentals.routes'
 
 const routes = Router()
 
-routes.use('/categories', ensureAuthenticated, categoriesRoutes)
-routes.use('/specifications', ensureAuthenticated, specificationsRoutes)
+routes.use('/categories', categoriesRoutes)
+routes.use('/specifications', specificationsRoutes)
 routes.use('/users', usersRoutes)
 routes.use('/cars', carsRoutes)
 routes.use('/rentals', rentalsRoutes)

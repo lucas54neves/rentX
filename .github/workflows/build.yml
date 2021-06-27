@@ -48,8 +48,7 @@ jobs:
         run: npm install
       - name: Install Jest globally
         run: sudo npm install -g jest
-      - name: Run Tests
-        env:
+      - name: Run Testsenv:
           DATABASE_NAME_TEST: ${{ matrix.database-name }}
           DATABASE_USER: ${{ matrix.database-user }}
           DATABASE_PASSWORD: ${{ matrix.database-password }}

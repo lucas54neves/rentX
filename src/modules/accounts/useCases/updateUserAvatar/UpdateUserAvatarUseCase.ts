@@ -2,14 +2,14 @@ import { inject, injectable } from 'tsyringe'
 
 import { AppError } from '@shared/errors'
 import { UpdateUserAvatarRequest } from '@modules/accounts/dtos'
-import { IUsersRepository } from '@modules/accounts/repositories'
+import { UsersRepositoryInterface } from '@modules/accounts/repositories'
 import { deleteFile } from '@utils'
 
 @injectable()
 class UpdateUserAvatarUseCase {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: UsersRepositoryInterface
   ) {}
 
   async execute({

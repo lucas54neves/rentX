@@ -1,3 +1,4 @@
+import { AppError } from '@shared/errors'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { ImportCategoryUseCase } from './ImportCategoryUseCase'
@@ -8,9 +9,13 @@ class ImportCategoryController {
 
     const importCategoryUseCase = container.resolve(ImportCategoryUseCase)
 
-    await importCategoryUseCase.execute(file)
+    if (file) {
+      await importCategoryUseCase.execute(file)
 
-    return response.status(201).send()
+      return response.status(201).send()
+    } else {
+      throw new AppError('Arquivo não encontrado')
+    }
   }
 }
 

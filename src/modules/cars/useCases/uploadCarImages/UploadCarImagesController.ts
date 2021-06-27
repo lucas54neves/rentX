@@ -1,3 +1,4 @@
+import { AppError } from '@shared/errors'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
@@ -13,16 +14,20 @@ class UploadCarImageController {
 
     const images = request.files as FilesInterface[]
 
-    const uploadCarImagesUseCase = container.resolve(UploadCarImagesUseCase)
+    if (images) {
+      const uploadCarImagesUseCase = container.resolve(UploadCarImagesUseCase)
 
-    const fileNames = images.map((file) => file.filename)
+      const fileNames = images.map((file) => file.filename)
 
-    await uploadCarImagesUseCase.execute({
-      carId: id,
-      imageNames: fileNames
-    })
+      await uploadCarImagesUseCase.execute({
+        carId: id,
+        imageNames: fileNames
+      })
 
-    return response.status(201).send()
+      return response.status(201).send()
+    } else {
+      throw new AppError('Arquivo não encontrado')
+    }
   }
 }
 

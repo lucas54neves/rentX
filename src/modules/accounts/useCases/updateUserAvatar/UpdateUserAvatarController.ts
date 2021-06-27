@@ -7,9 +7,9 @@ class UpdateUserAvatarController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.user
 
-    const avatarFile = request.file.filename
+    if (request.file) {
+      const avatarFile = request.file.filename
 
-    if (avatarFile) {
       const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase)
 
       await updateUserAvatarUseCase.execute({
@@ -19,7 +19,7 @@ class UpdateUserAvatarController {
 
       return response.status(204).send()
     } else {
-      throw new AppError('Arquivo não encontrado')
+      throw new AppError('File not found')
     }
   }
 }

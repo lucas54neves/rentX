@@ -12,9 +12,9 @@ class UploadCarImageController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
 
-    const images = request.files as FilesInterface[]
+    if (request.files) {
+      const images = request.files as FilesInterface[]
 
-    if (images) {
       const uploadCarImagesUseCase = container.resolve(UploadCarImagesUseCase)
 
       const fileNames = images.map((file) => file.filename)
@@ -26,7 +26,7 @@ class UploadCarImageController {
 
       return response.status(201).send()
     } else {
-      throw new AppError('Arquivo não encontrado')
+      throw new AppError('File not found')
     }
   }
 }

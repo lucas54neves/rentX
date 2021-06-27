@@ -13,9 +13,9 @@ jobs:
         database-name:
         - rentx_test
         database-password:
-        - postgres
+        - ignite
         database-user:
-        - postgres
+        - docker
         database-host:
         - 127.0.0.1
         database-port:
@@ -24,9 +24,9 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_DB: postgres        
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
+          POSTGRES_DB: rentx_test        
+          POSTGRES_PASSWORD: ignite
+          POSTGRES_USER: docker
         ports:
           - 5432:5432
         options:

@@ -1,6 +1,4 @@
 on:
-  # Trigger analysis when pushing in master or pull requests, and when creating
-  # a pull request.
   push:
     branches:
       - main
@@ -31,7 +29,6 @@ jobs:
           POSTGRES_USER: postgres
         ports:
           - 5432:5432
-        # Set health checks to wait until postgres has started
         options:
           --health-cmd pg_isready
           --health-interval 10s
@@ -48,7 +45,8 @@ jobs:
         run: npm install
       - name: Install Jest globally
         run: sudo npm install -g jest
-      - name: Run Testsenv:
+      - name: Run Tests
+        env:
           DATABASE_NAME_TEST: ${{ matrix.database-name }}
           DATABASE_USER: ${{ matrix.database-user }}
           DATABASE_PASSWORD: ${{ matrix.database-password }}

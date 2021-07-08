@@ -2,7 +2,8 @@ import {
   AddSpecificationRequest,
   CreateCarRequest,
   FindSpecificationInCarsRepositoryRequest,
-  ListAvailableCarsRequest
+  ListAvailableCarsRequest,
+  UpdateAvailableRequest
 } from '@modules/cars/dtos'
 import { Car, Specification } from '@modules/cars/infra/typeorm/entities'
 import { CarsRepositoryInterface } from '../CarsRepositoryInterface'
@@ -43,7 +44,7 @@ class CarsRepositoryInMemory implements CarsRepositoryInterface {
     return this.cars.find((car) => car.id === id)
   }
 
-  async findByLincensePlate(licensePlate: string): Promise<Car | undefined> {
+  async findByLicensePlate(licensePlate: string): Promise<Car | undefined> {
     return this.cars.find((car) => car.licensePlate === licensePlate)
   }
 
@@ -77,6 +78,17 @@ class CarsRepositoryInMemory implements CarsRepositoryInterface {
     specificationId
   }: FindSpecificationInCarsRepositoryRequest): Specification | null {
     return findSpecificationFromCar({ car, specificationId })
+  }
+
+  async updateAvailable({
+    id,
+    available
+  }: UpdateAvailableRequest): Promise<void> {
+    const carIndex = this.cars.forEach((car) => {
+      if (car.id === id) {
+        car.available = available
+      }
+    })
   }
 }
 

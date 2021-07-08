@@ -4,7 +4,8 @@ import {
   AddSpecificationRequest,
   CreateCarRequest,
   FindSpecificationInCarsRepositoryRequest,
-  ListAvailableCarsRequest
+  ListAvailableCarsRequest,
+  UpdateAvailableRequest
 } from '@modules/cars/dtos'
 import { CarsRepositoryInterface } from '@modules/cars/repositories'
 import { Car, Specification } from '../entities'
@@ -49,7 +50,7 @@ class CarsRepository implements CarsRepositoryInterface {
     return this.repository.findOne(id)
   }
 
-  async findByLincensePlate(licensePlate: string): Promise<Car | undefined> {
+  async findByLicensePlate(licensePlate: string): Promise<Car | undefined> {
     return this.repository.findOne({ licensePlate })
   }
 
@@ -93,6 +94,19 @@ class CarsRepository implements CarsRepositoryInterface {
     specificationId
   }: FindSpecificationInCarsRepositoryRequest): Specification | null {
     return findSpecificationFromCar({ car, specificationId })
+  }
+
+  async updateAvailable({
+    id,
+    available
+  }: UpdateAvailableRequest): Promise<void> {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set({ available })
+      .where('id = :id')
+      .setParameters({ id })
+      .execute()
   }
 }
 

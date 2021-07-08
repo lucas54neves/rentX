@@ -16,6 +16,8 @@
 
    2.5. [Aluguel de carro](#aluguel-carro)
 
+   2.6. [Devolução de carro](#devolucao-carro)
+
 3. [Comandos principais](#comandos-principais)
 
    3.1. [Virtualização com Docker](#docker)
@@ -92,6 +94,22 @@ A car rental API
 - [x] Não deve ser possível cadastrar um aluguel caso já exista um aberto para o mesmo usuário.
 - [x] Não deve ser possível cadastrar um aluguel caso já exista um aberto para o mesmo carro.
 - [x] O usuário deve estar logado na aplicação.
+- [x] Ao realizar um aluguel, o status do carro deverá ser alterado para indisponível.
+
+### Devolução de carro <a name="devolucao-carro" />
+
+#### Requisitos funcionais
+
+- [ ] Deve ser possível realizar a devolução de um carro.
+
+#### Regras de negócio
+
+- [ ] Se o carro for devolvido com menos de 24 horas, deverá ser cobrado diária completa.
+- [ ] Ao realizar a devolução, o carro deverá ser liberado para outro aluguel.
+- [ ] Ao realizar a devolução, o usuário deverá ser liberado para outro aluguel.
+- [ ] Ao realizar a devolução, deverá ser calculado o total do aluguel.
+- [ ] Caso o horário de devolução seja superior ao horário previsto de entrega, deverá ser cobrado multa proporcional aos dias de atraso.
+- [ ] Caso haja multa, deverá ser somado ao total do aluguel.
 
 ## Comandos principais <a name="comandos-principais" />
 

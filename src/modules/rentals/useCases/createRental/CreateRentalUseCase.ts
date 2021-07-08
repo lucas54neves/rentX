@@ -5,8 +5,9 @@ import { CreateRentalRequestInterface } from '@modules/rentals/dtos'
 import { Rental } from '@modules/rentals/infra/typeorm/entities'
 import { RentalsRepositoryInterface } from '@modules/rentals/repositories'
 import { AppError } from '@shared/errors'
-import { DateProviderInterface } from '@shared/container/providers/DateProvider/DateProviderInterface'
 import { inject, injectable } from 'tsyringe'
+
+import { DateProviderInterface } from '@shared/container/providers/DateProvider/DateProviderInterface'
 import rentalConfig from '@config/rental'
 import { CarsRepositoryInterface } from '@modules/cars/repositories'
 
@@ -28,7 +29,7 @@ class CreateRentalUseCase {
     carId,
     expectedReturnDate
   }: CreateRentalRequestInterface): Promise<Rental> {
-    const minimumHour = rentalConfig.minimumDuration
+    const minimumHour = rentalConfig.minimumDuration.hours
 
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(
       carId

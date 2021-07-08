@@ -1,3 +1,6 @@
 export default {
-  minimumDuration: 24
+  minimumDuration: {
+    hours: 24,
+    days: 1
+  }
 }

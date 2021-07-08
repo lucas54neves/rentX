@@ -21,7 +21,7 @@ class CreateCarUseCase {
     brand,
     categoryId
   }: CreateCarRequest): Promise<Car> {
-    const carAlreadyExists = await this.carsRepository.findByLincensePlate(
+    const carAlreadyExists = await this.carsRepository.findByLicensePlate(
       licensePlate
     )
 

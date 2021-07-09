@@ -18,6 +18,8 @@
 
    2.6. [Devolução de carro](#devolucao-carro)
 
+   2.7. [Listagem de aluguéis](#listagem-alugueis)
+
 3. [Comandos principais](#comandos-principais)
 
    3.1. [Virtualização com Docker](#docker)
@@ -110,6 +112,16 @@ A car rental API
 - [x] Ao realizar a devolução, deverá ser calculado o total do aluguel.
 - [x] Caso o horário de devolução seja superior ao horário previsto de entrega, deverá ser cobrado multa proporcional aos dias de atraso.
 - [x] Caso haja multa, deverá ser somado ao total do aluguel.
+- [x] O usuário deve estar logado na aplicação.
+
+### Listagem de aluguéis para usuário <a name="listagem-alugueis" />
+
+#### Requisitos funcionais
+
+- [x] Deve ser possível a busca de todos os aluguéis para o usuário.
+
+#### Regras de negócio
+
 - [x] O usuário deve estar logado na aplicação.
 
 ## Comandos principais <a name="comandos-principais" />

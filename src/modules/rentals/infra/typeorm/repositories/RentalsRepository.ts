@@ -43,7 +43,10 @@ class RentalsRepository implements RentalsRepositoryInterface {
   }
 
   async findByUserId(userId: string): Promise<Rental[] | undefined> {
-    return this.repository.find({ userId })
+    return this.repository.find({
+      where: { userId },
+      relations: ['car']
+    })
   }
 }
 

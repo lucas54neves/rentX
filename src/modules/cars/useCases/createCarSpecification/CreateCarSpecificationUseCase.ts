@@ -32,11 +32,10 @@ class CreateCarSpecificationUseCase {
     )
 
     for (let specification of specifications) {
-      const specificationAlreadyAdded =
-        await this.carsRepository.findSpecification({
-          car: carExists,
-          specificationId: specification.id
-        })
+      const specificationAlreadyAdded = this.carsRepository.findSpecification({
+        car: carExists,
+        specificationId: specification.id
+      })
 
       if (!specificationAlreadyAdded) {
         await this.carsRepository.addSpecification({

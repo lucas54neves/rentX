@@ -9,8 +9,8 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "test:sonar": "NODE_ENV=test jest --coverage --testResultsProcessor=jest-sonar-reporter --detectOpenHandles",
-    "test": "NODE_ENV=test jest --detectOpenHandles",
-    "test:watch": "yarn jest --watch -f",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles",
+    "test:watch": "yarn jest --runInBand --watch -f",
     "seed:admin": "ts-node-dev src/shared/infra/typeorm/seed/admin.ts"
   },
   "dependencies": {

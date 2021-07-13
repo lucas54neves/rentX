@@ -29,6 +29,10 @@ class DayjsDateProvider implements DateProviderInterface {
 
     return dayjs(endDateUTC).diff(startDateUTC, 'days')
   }
+
+  add48HoursToNow(): Date {
+    return dayjs().add(2, 'day').toDate()
+  }
 }
 
 export { DayjsDateProvider }

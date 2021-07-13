@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe'
 import { AppError } from '@shared/errors'
 import { CreateUserRequest } from '@modules/accounts/dtos'
 import { UsersRepositoryInterface } from '@modules/accounts/repositories'
+import { User } from '@modules/accounts/infra/typeorm/entities'
 
 @injectable()
 class CreateUserUseCase {
@@ -18,7 +19,7 @@ class CreateUserUseCase {
     email,
     password,
     driverLicense
-  }: CreateUserRequest) {
+  }: CreateUserRequest): Promise<User> {
     const emailAlreadyInUse = await this.usersRepository.findByEmail(email)
 
     if (emailAlreadyInUse) {
@@ -35,7 +36,7 @@ class CreateUserUseCase {
 
     const passwordHashed = await hash(password, 8)
 
-    await this.usersRepository.create({
+    return this.usersRepository.create({
       name,
       username,
       email,

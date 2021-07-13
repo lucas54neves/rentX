@@ -1,8 +1,8 @@
 import { AppError } from '@shared/errors'
-import { CreateUserRequest } from '@modules/accounts/dtos'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
-import { CreateUserUseCase } from '../createUser/CreateUserUseCase'
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase'
+import { User } from '@modules/accounts/infra/typeorm/entities'
+import { CreateUserUseCase } from '../createUser/CreateUserUseCase'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory
 
@@ -10,10 +10,10 @@ let authenticateUserUserCase: AuthenticateUserUseCase
 
 let createUserUseCase: CreateUserUseCase
 
-let user: CreateUserRequest
+let user: User
 
 describe('User authentication', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     usersRepositoryInMemory = new UsersRepositoryInMemory()
 
     authenticateUserUserCase = new AuthenticateUserUseCase(
@@ -22,54 +22,51 @@ describe('User authentication', () => {
 
     createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory)
 
-    user = {
+    user = await createUserUseCase.execute({
       name: 'User Test',
       email: 'test@main.com',
       username: 'usertest',
-      password: 'OHjcWdaFE35A7kBJBmVyjlNfaJ8lWgHI2zaUR4tjGhI=',
+      password: 'blublublu12345',
       driverLicense: '0001234'
-    }
+    })
   })
 
   it('should be able to authenticate an user', async () => {
-    await createUserUseCase.execute(user)
-
     const result = await authenticateUserUserCase.execute({
-      email: user.email,
-      password: user.password
+      email: 'test@main.com',
+      password: 'blublublu12345'
     })
 
     expect(result).toHaveProperty('token')
+    expect(result.user).not.toBeNull()
+    expect(result.user.name).toBe('User Test')
+    expect(result.user.email).toBe('test@main.com')
   })
 
-  it('shout not be able to authenticate an nonexistent user', async () => {
-    await expect(async () => {
-      await authenticateUserUserCase.execute({
+  it('should not be able to authenticate an nonexistent user', async () => {
+    await expect(
+      authenticateUserUserCase.execute({
         email: 'false@mail.com',
-        password: '55Y8Tc+IMN+yJb+Z/UHZz3iJKXNLSdbWv8grYxDEtpo='
+        password: 'blbiblbi12344'
       })
-    }).rejects.toBeInstanceOf(AppError)
+    ).rejects.toEqual(new AppError('Email or password incorrect'))
   })
 
-  it('shout not be able to authenticate with incorrect email', async () => {
-    await expect(async () => {
-      await createUserUseCase.execute(user)
-
-      await authenticateUserUserCase.execute({
+  it('should not be able to authenticate with incorrect email', async () => {
+    await expect(
+      authenticateUserUserCase.execute({
         email: 'false@mail.com',
-        password: user.password
+        password: 'blublublu12345'
       })
-    }).rejects.toBeInstanceOf(AppError)
+    ).rejects.toEqual(new AppError('Email or password incorrect'))
   })
 
-  it('shout not be able to authenticate with incorrect password', () => {
-    expect(async () => {
-      await createUserUseCase.execute(user)
-
-      await authenticateUserUserCase.execute({
-        email: user.email,
-        password: '55Y8Tc+IMN+yJb+Z/UHZz3iJKXNLSdbWv8grYxDEtpo='
+  it('should not be able to authenticate with incorrect password', () => {
+    expect(
+      authenticateUserUserCase.execute({
+        email: 'test@main.com',
+        password: 'blablabla12346'
       })
-    }).rejects.toBeInstanceOf(AppError)
+    ).rejects.toEqual(new AppError('Email or password incorrect'))
   })
 })

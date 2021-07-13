@@ -9,7 +9,7 @@ class UsersRepositoryInMemory implements UsersRepositoryInterface {
     this.users = []
   }
 
-  async create(data: CreateUserRequest): Promise<void> {
+  async create(data: CreateUserRequest): Promise<User> {
     const user = new User(
       data.name,
       data.username,
@@ -20,6 +20,8 @@ class UsersRepositoryInMemory implements UsersRepositoryInterface {
     )
 
     await this.save(user)
+
+    return user
   }
 
   async save(user: User): Promise<void> {

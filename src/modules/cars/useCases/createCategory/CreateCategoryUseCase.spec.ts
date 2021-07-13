@@ -7,22 +7,7 @@ let categoryCreationUseCase: CreateCategoryUseCase
 
 let categoriesRepositoryInMemory: CategoriesRepositoryInMemory
 
-let testCategories: CreateCategoryRequest[]
-
 describe('Category creation', () => {
-  beforeAll(() => {
-    testCategories = [
-      {
-        name: 'Category Test',
-        description: 'Category description test 1'
-      },
-      {
-        name: 'Category Test',
-        description: 'Category description test 2'
-      }
-    ]
-  })
-
   beforeEach(() => {
     categoriesRepositoryInMemory = new CategoriesRepositoryInMemory()
 
@@ -33,28 +18,32 @@ describe('Category creation', () => {
 
   it('should be able to create a new category', async () => {
     await categoryCreationUseCase.execute({
-      name: testCategories[0].name,
-      description: testCategories[0].description
+      name: 'Category Test',
+      description: 'Category description test 1'
     })
 
     const categoryCreated = await categoriesRepositoryInMemory.findByName(
-      testCategories[0].name
+      'Category Test'
     )
 
     expect(categoryCreated).toHaveProperty('id')
+    if (categoryCreated) {
+      expect(categoryCreated.name).toBe('Category Test')
+      expect(categoryCreated.description).toBe('Category description test 1')
+    }
   })
 
   it('should not be able to create a new category with name exists', async () => {
-    await expect(async () => {
-      await categoryCreationUseCase.execute({
-        name: testCategories[0].name,
-        description: testCategories[0].description
-      })
+    await categoryCreationUseCase.execute({
+      name: 'Category Test',
+      description: 'Category description test 1'
+    })
 
-      await categoryCreationUseCase.execute({
-        name: testCategories[1].name,
-        description: testCategories[1].description
+    await expect(
+      categoryCreationUseCase.execute({
+        name: 'Category Test',
+        description: 'Category description test 1'
       })
-    }).rejects.toBeInstanceOf(AppError)
+    ).rejects.toEqual(new AppError('Category already exists'))
   })
 })

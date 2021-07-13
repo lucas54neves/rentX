@@ -5,8 +5,11 @@ import { CreateRentalRequestInterface } from '@modules/rentals/dtos'
 import { Rental } from '@modules/rentals/infra/typeorm/entities'
 import { RentalsRepositoryInterface } from '@modules/rentals/repositories'
 import { AppError } from '@shared/errors'
-import { DateProviderInterface } from '@shared/container/providers/DateProvider/DateProviderInterface'
 import { inject, injectable } from 'tsyringe'
+
+import { DateProviderInterface } from '@shared/container/providers/DateProvider/DateProviderInterface'
+import rentalConfig from '@config/rental'
+import { CarsRepositoryInterface } from '@modules/cars/repositories'
 
 dayjs.extend(utc)
 
@@ -16,7 +19,9 @@ class CreateRentalUseCase {
     @inject('RentalsRepository')
     private rentalsRepository: RentalsRepositoryInterface,
     @inject('DayjsDateProvider')
-    private dateProvider: DateProviderInterface
+    private dateProvider: DateProviderInterface,
+    @inject('CarsRepository')
+    private carsRepository: CarsRepositoryInterface
   ) {}
 
   async execute({
@@ -24,7 +29,7 @@ class CreateRentalUseCase {
     carId,
     expectedReturnDate
   }: CreateRentalRequestInterface): Promise<Rental> {
-    const minimumHour = 24
+    const minimumHour = rentalConfig.minimumDuration.hours
 
     const carUnavailable = await this.rentalsRepository.findOpenRentalByCar(
       carId
@@ -53,11 +58,15 @@ class CreateRentalUseCase {
       throw new AppError(`Invalid return time`)
     }
 
-    return this.rentalsRepository.create({
+    const rental = this.rentalsRepository.create({
       userId,
       carId,
       expectedReturnDate
     })
+
+    await this.carsRepository.updateAvailable({ id: carId, available: false })
+
+    return rental
   }
 }
 

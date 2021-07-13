@@ -31,11 +31,22 @@ class RentalsRepository implements RentalsRepositoryInterface {
   }
 
   async findOpenRentalByCar(carId: string): Promise<Rental | undefined> {
-    return this.repository.findOne({ carId })
+    return this.repository.findOne({ where: { carId, endDate: null } })
   }
 
   async findOpenRentalByUser(userId: string): Promise<Rental | undefined> {
-    return this.repository.findOne({ userId })
+    return this.repository.findOne({ where: { userId, endDate: null } })
+  }
+
+  async findById(id: string): Promise<Rental | undefined> {
+    return this.repository.findOne(id)
+  }
+
+  async findByUserId(userId: string): Promise<Rental[] | undefined> {
+    return this.repository.find({
+      where: { userId },
+      relations: ['car']
+    })
   }
 }
 

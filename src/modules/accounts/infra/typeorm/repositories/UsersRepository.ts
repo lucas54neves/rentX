@@ -17,7 +17,7 @@ class UsersRepository implements UsersRepositoryInterface {
     email,
     password,
     driverLicense
-  }: CreateUserRequest): Promise<void> {
+  }: CreateUserRequest): Promise<User> {
     const user = this.repository.create({
       name,
       username,
@@ -27,6 +27,8 @@ class UsersRepository implements UsersRepositoryInterface {
     })
 
     await this.save(user)
+
+    return user
   }
 
   async save(user: User): Promise<void> {

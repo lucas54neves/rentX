@@ -56,45 +56,53 @@ describe('Create user', () => {
     )
 
     expect(userCreated).toHaveProperty('id')
+    if (userCreated) {
+      expect(userCreated.name).toBe('Test user 1')
+      expect(userCreated.username).toBe('testuser1')
+      expect(userCreated.email).toBe('testuser1@mail.com')
+      expect(userCreated.driverLicense).toBe('ABC123')
+      expect(userCreated.isAdmin).toBe(false)
+      expect(userCreated.avatar).toBe('avatarFile')
+    }
   })
 
   it('should not be able to create a new user with email in use', async () => {
-    await expect(async () => {
-      await createUserUseCase.execute({
-        name: testUsers[0].name,
-        username: testUsers[0].username,
-        email: testUsers[0].email,
-        password: testUsers[0].password,
-        driverLicense: testUsers[0].driverLicense
-      })
+    await createUserUseCase.execute({
+      name: testUsers[0].name,
+      username: testUsers[0].username,
+      email: testUsers[0].email,
+      password: testUsers[0].password,
+      driverLicense: testUsers[0].driverLicense
+    })
 
-      await createUserUseCase.execute({
+    await expect(
+      createUserUseCase.execute({
         name: testUsers[1].name,
         username: testUsers[1].username,
         email: testUsers[1].email,
         password: testUsers[1].password,
         driverLicense: testUsers[1].driverLicense
       })
-    }).rejects.toBeInstanceOf(AppError)
+    ).rejects.toEqual(new AppError('Email already in use'))
   })
 
   it('should not be able to create a new user with username in use', async () => {
-    await expect(async () => {
-      await createUserUseCase.execute({
-        name: testUsers[0].name,
-        username: testUsers[0].username,
-        email: testUsers[0].email,
-        password: testUsers[0].password,
-        driverLicense: testUsers[0].driverLicense
-      })
+    await createUserUseCase.execute({
+      name: testUsers[0].name,
+      username: testUsers[0].username,
+      email: testUsers[0].email,
+      password: testUsers[0].password,
+      driverLicense: testUsers[0].driverLicense
+    })
 
-      await createUserUseCase.execute({
+    await expect(
+      createUserUseCase.execute({
         name: testUsers[2].name,
         username: testUsers[2].username,
         email: testUsers[2].email,
         password: testUsers[2].password,
         driverLicense: testUsers[2].driverLicense
       })
-    }).rejects.toBeInstanceOf(AppError)
+    ).rejects.toEqual(new AppError('Username already in use'))
   })
 })

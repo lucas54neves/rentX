@@ -1,13 +1,13 @@
 import { CreateUserTokensRequest } from '@modules/accounts/dtos'
 import { UsersTokensRepositoryInterface } from '@modules/accounts/repositories/UsersTokensRepositoryInterface'
-import { Repository } from 'typeorm'
-import { User, UserTokens } from '../entities'
+import { getRepository, Repository } from 'typeorm'
+import { UserTokens } from '../entities'
 
 class UsersTokensRepository implements UsersTokensRepositoryInterface {
   private repository: Repository<UserTokens>
 
   constructor() {
-    this.repository = new Repository()
+    this.repository = getRepository(UserTokens)
   }
 
   async create({
@@ -30,3 +30,5 @@ class UsersTokensRepository implements UsersTokensRepositoryInterface {
     this.repository.save(userToken)
   }
 }
+
+export { UsersTokensRepository }

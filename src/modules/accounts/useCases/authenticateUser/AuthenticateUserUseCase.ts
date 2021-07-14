@@ -7,13 +7,22 @@ import {
   AuthenticateUserRequest,
   AuthenticateUserResponse
 } from '@modules/accounts/dtos'
-import { UsersRepositoryInterface } from '@modules/accounts/repositories'
+import {
+  UsersRepositoryInterface,
+  UsersTokensRepositoryInterface
+} from '@modules/accounts/repositories'
+import auth from '@config/auth'
+import { DateProviderInterface } from '@shared/container/providers/DateProvider/DateProviderInterface'
 
 @injectable()
 class AuthenticateUserUseCase {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: UsersRepositoryInterface
+    private usersRepository: UsersRepositoryInterface,
+    @inject('UsersTokensRepository')
+    private usersTokensRepository: UsersTokensRepositoryInterface,
+    @inject('DayjsDateProvider')
+    private dateProvider: DateProviderInterface
   ) {}
 
   async execute({
@@ -21,6 +30,14 @@ class AuthenticateUserUseCase {
     password
   }: AuthenticateUserRequest): Promise<AuthenticateUserResponse> {
     const user = await this.usersRepository.findByEmail(email)
+
+    const { secretKey: secretKeyToken, expiresIn: expiresInToken } = auth.token
+
+    const {
+      secretKey: secretKeyRefreshToken,
+      expiresIn: expiresInRefreshToken,
+      expiresInDays: expiresDateRefreshToken
+    } = auth.refreshToken
 
     if (!user) {
       throw new AppError('Email or password incorrect')
@@ -32,9 +49,24 @@ class AuthenticateUserUseCase {
       throw new AppError('Email or password incorrect')
     }
 
-    const token = sign({}, '997db1d173c7d429f21aa54fe4faaad6', {
+    const token = sign({}, secretKeyToken, {
       subject: user.id,
-      expiresIn: '1d'
+      expiresIn: expiresInToken
+    })
+
+    const refreshToken = sign({ email }, secretKeyRefreshToken, {
+      subject: user.id,
+      expiresIn: expiresInRefreshToken
+    })
+
+    const refreshTokenExpiresIn = this.dateProvider.addDays(
+      expiresDateRefreshToken
+    )
+
+    await this.usersTokensRepository.create({
+      userId: user.id,
+      expiresDate: refreshTokenExpiresIn,
+      refreshToken
     })
 
     return {
@@ -42,7 +74,8 @@ class AuthenticateUserUseCase {
         name: user.name,
         email: user.email
       },
-      token
+      token,
+      refreshToken
     }
   }
 }

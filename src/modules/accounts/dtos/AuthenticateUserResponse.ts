@@ -4,4 +4,5 @@ export type AuthenticateUserResponse = {
     email: string
   }
   token: string
+  refreshToken: string
 }

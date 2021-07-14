@@ -2,8 +2,14 @@ import { container } from 'tsyringe'
 
 import '@shared/container/providers'
 
-import { UsersRepository } from '@modules/accounts/infra/typeorm/repositories'
-import { UsersRepositoryInterface } from '@modules/accounts/repositories'
+import {
+  UsersRepository,
+  UsersTokensRepository
+} from '@modules/accounts/infra/typeorm/repositories'
+import {
+  UsersRepositoryInterface,
+  UsersTokensRepositoryInterface
+} from '@modules/accounts/repositories'
 import {
   CategoriesRepository,
   SpecificationsRepository,
@@ -47,4 +53,9 @@ container.registerSingleton<CarsImagesRepositoryInterface>(
 container.registerSingleton<RentalsRepositoryInterface>(
   'RentalsRepository',
   RentalsRepository
+)
+
+container.registerSingleton<UsersTokensRepositoryInterface>(
+  'UsersTokensRepository',
+  UsersTokensRepository
 )

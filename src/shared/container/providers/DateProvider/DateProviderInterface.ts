@@ -4,6 +4,7 @@ interface DateProviderInterface {
   dateNow(): Date
   compareInDays(startDate: Date, endDate: Date): number
   add48HoursToNow(): Date
+  addDays(days: number): Date
 }
 
 export { DateProviderInterface }

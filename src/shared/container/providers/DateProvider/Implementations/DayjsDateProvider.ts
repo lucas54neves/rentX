@@ -33,6 +33,10 @@ class DayjsDateProvider implements DateProviderInterface {
   add48HoursToNow(): Date {
     return dayjs().add(2, 'day').toDate()
   }
+
+  addDays(days: number): Date {
+    return dayjs().add(days, 'day').toDate()
+  }
 }
 
 export { DayjsDateProvider }
